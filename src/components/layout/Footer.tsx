@@ -15,9 +15,9 @@ export default function Footer() {
             <p className="text-sm leading-8 text-gray-400 mb-8 pr-4">
               At ASPL, we specialize in high-quality steel products, committed to excellence and innovation in manufacturing. Our dedication ensures we meet the diverse needs of our clients across various industries.
             </p>
-            <button className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 rounded-full uppercase text-[0.75rem] transition-colors duration-300">
+            <Link href="/about-us" className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 rounded-full uppercase text-[0.75rem] transition-colors duration-300 inline-block">
               READ MORE ⊕
-            </button>
+            </Link>
           </div>
 
           {/* Col 2 */}
@@ -26,12 +26,12 @@ export default function Footer() {
               Quick links
             </h4>
             <ul className="flex flex-col gap-4 text-sm text-gray-400">
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Help Center</Link></li>
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Terms & Uses</Link></li>
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Careers</Link></li>
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Meet the Team</Link></li>
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Contact</Link></li>
+              <li><Link href="/privacy-policy" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Privacy Policy</Link></li>
+              <li><Link href="/contact-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Help Center</Link></li>
+              <li><Link href="/terms" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Terms & Uses</Link></li>
+              <li><Link href="/careers" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Careers</Link></li>
+              <li><Link href="/about-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Meet the Team</Link></li>
+              <li><Link href="/contact-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Contact</Link></li>
             </ul>
           </div>
 
@@ -41,12 +41,10 @@ export default function Footer() {
               Our Services
             </h4>
             <ul className="flex flex-col gap-4 text-sm text-gray-400">
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Oil & Gas Productions</Link></li>
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Automobile Service</Link></li>
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Chemical Industry</Link></li>
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Material Service</Link></li>
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Mechanical Industry</Link></li>
-              <li><Link href="#" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Welding services</Link></li>
+              <li><Link href="/contact-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Custom Sheet Metal Components</Link></li>
+              <li><Link href="/contact-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Slitted Coils</Link></li>
+              <li><Link href="/contact-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Cut-to-length Sheets & Strips</Link></li>
+              <li><Link href="/contact-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Custom Bar Components</Link></li>
             </ul>
           </div>
 
@@ -71,9 +69,14 @@ export default function Footer() {
             </div>
 
             <div className="flex gap-3 mt-8">
-              {['f', 't', 'in', 'yt'].map((icon, i) => (
-                <Link key={i} href="#" className="w-10 h-10 border border-gray-700 hover:border-[#FF5B22] hover:bg-[#FF5B22] text-gray-400 hover:text-white rounded-full flex items-center justify-center transition-all duration-300">
-                  {icon}
+              {[
+                { label: 'f', href: 'https://facebook.com/aeronsteels', aria: 'Facebook' },
+                { label: 't', href: 'https://twitter.com/aeronsteels', aria: 'Twitter' },
+                { label: 'in', href: 'https://linkedin.com/company/aeronsteels', aria: 'LinkedIn' },
+                { label: 'yt', href: 'https://youtube.com/@aeronsteels', aria: 'YouTube' },
+              ].map((icon, i) => (
+                <Link key={i} href={icon.href} aria-label={icon.aria} target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-gray-700 hover:border-[#FF5B22] hover:bg-[#FF5B22] text-gray-400 hover:text-white rounded-full flex items-center justify-center transition-all duration-300">
+                  {icon.label}
                 </Link>
               ))}
             </div>

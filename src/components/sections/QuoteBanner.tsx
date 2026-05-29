@@ -2,8 +2,10 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 export default function QuoteBannerSection() {
+  const router = useRouter();
   return (
     <section 
       className="relative py-20 bg-cover bg-center overflow-hidden"
@@ -47,13 +49,14 @@ export default function QuoteBannerSection() {
         </motion.p>
 
         <motion.button 
-          className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 rounded-full uppercase text-sm transition-colors duration-300 shadow-lg"
+          className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 rounded-full uppercase text-sm transition-colors duration-300 shadow-lg cursor-pointer"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: false }}
           transition={{ duration: 0.4, delay: 0.4 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={() => router.push('/contact-us')}
         >
           Get a Quote ⊕
         </motion.button>

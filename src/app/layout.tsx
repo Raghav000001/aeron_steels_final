@@ -42,6 +42,11 @@ export const metadata: Metadata = {
       "ISO 9001:2015 certified steel manufacturing and fabrication by Aeron Steels Private Limited.",
     images: ["/images/logo.png"],
   },
+  icons: {
+    icon: "/images/logo.png",
+    shortcut: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
   robots: {
     index: true,
     follow: true,

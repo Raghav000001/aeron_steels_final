@@ -97,7 +97,7 @@ export default function ServicesSection() {
                 <p className="text-gray-500 text-sm mb-6 leading-relaxed">
                   {svc.desc}
                 </p>
-                <a href="#" className="font-bold text-[#FF5B22] text-xs uppercase hover:underline">
+                <a href="/contact-us" className="font-bold text-[#FF5B22] text-xs uppercase hover:underline">
                   Read More &gt;
                 </a>
               </div>

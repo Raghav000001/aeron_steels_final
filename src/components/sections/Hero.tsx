@@ -2,8 +2,10 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 export default function HeroSection() {
+  const router = useRouter();
   return (
     <section className="relative w-full h-[600px] overflow-hidden">
       {/* Background Image */}
@@ -36,7 +38,8 @@ export default function HeroSection() {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 uppercase text-sm transition-colors duration-300 shadow-xl"
+            onClick={() => router.push('/contact-us')}
+            className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 uppercase text-sm transition-colors duration-300 shadow-xl cursor-pointer"
           >
             Contact Us
           </motion.button>

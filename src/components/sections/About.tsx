@@ -2,8 +2,10 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 export default function AboutSection() {
+  const router = useRouter();
   return (
     <section className="py-28 bg-white overflow-hidden">
       <div className="max-w-[1240px] mx-auto px-6">
@@ -67,13 +69,14 @@ export default function AboutSection() {
             </motion.p>
 
             <motion.button 
-              className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 rounded-full uppercase text-sm transition-colors duration-300"
+              className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 rounded-full uppercase text-sm transition-colors duration-300 cursor-pointer"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 0.5, delay: 0.4 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => router.push('/about-us')}
             >
               Read More ⊕
             </motion.button>
