@@ -1,20 +1,30 @@
 import type { Metadata } from 'next';
 import ProductDetailClient from './ProductDetailClient';
+import { connectDB } from '@/lib/mongodb';
+import { Product } from '@/models/Product';
 
 interface ProductPageProps {
   params: Promise<{ id: string }>;
 }
 
+interface ProductDoc {
+  _id: { toString(): string };
+  title: string;
+  src: string;
+}
+
 async function getProduct(id: string) {
   try {
-    const baseUrl = process.env.INTERNAL_API_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/products/${id}`, {
-      cache: 'no-store',
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.data?.product || data.product || null;
-  } catch {
+    await connectDB();
+    const product = await Product.findById(id).lean();
+    if (!product) return null;
+    return {
+      _id: (product._id as { toString(): string }).toString(),
+      title: product.title,
+      src: product.src,
+    };
+  } catch (error) {
+    console.error('getProduct error:', error);
     return null;
   }
 }

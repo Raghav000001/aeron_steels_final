@@ -9,7 +9,7 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.SITE_URL || "https://aeronsteels.com";
+const siteUrl = process.env.SITE_URL || "https://aeron-steels-final.vercel.app";
 
 export const metadata: Metadata = {
   title: {

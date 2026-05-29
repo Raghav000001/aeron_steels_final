@@ -1,6 +1,9 @@
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
 import path from 'path';
+import { ENV } from './env';
+
+const siteUrl = ENV.SITE_URL;
 
 const mailGenerator = new Mailgen({
   theme: {
@@ -9,7 +12,7 @@ const mailGenerator = new Mailgen({
   },
   product: {
     name: 'Aeron Steels',
-    link: 'https://aeronsteels.com',
+    link: siteUrl,
     copyright: `Copyright © ${new Date().getFullYear()} Aeron Steels. All rights reserved.`,
   },
 });
@@ -95,7 +98,7 @@ export async function sendSubmissionAcknowledgment(data: ContactFormData): Promi
         button: {
           color: GREEN,
           text: 'Visit Our Website',
-          link: 'https://aeronsteels.com',
+          link: siteUrl,
         },
       },
       outro: [

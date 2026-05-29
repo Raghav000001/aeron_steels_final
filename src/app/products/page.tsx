@@ -1,6 +1,10 @@
 import type { Metadata } from 'next';
 import PageBanner from '@/components/ui/PageBanner';
 import ProductGrid from '@/components/ui/product-grid';
+import { connectDB } from '@/lib/mongodb';
+import { Product } from '@/models/Product';
+
+export const dynamic = 'force-dynamic';
 
 interface ProductData {
   _id: string;
@@ -21,14 +25,18 @@ export const metadata: Metadata = {
 
 async function getProducts(): Promise<ProductData[]> {
   try {
-    const baseUrl = process.env.INTERNAL_API_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/products?limit=100`, {
-      cache: 'no-store',
-    });
-    if (!res.ok) throw new Error('Failed to fetch');
-    const data = await res.json();
-    return (data.data || data.products) as ProductData[];
-  } catch {
+    await connectDB();
+    const products = await Product.find()
+      .sort({ createdAt: -1 })
+      .limit(100)
+      .lean();
+    return products.map((p) => ({
+      _id: (p._id as { toString(): string }).toString(),
+      title: p.title,
+      src: p.src,
+    }));
+  } catch (error) {
+    console.error('getProducts error:', error);
     return [];
   }
 }

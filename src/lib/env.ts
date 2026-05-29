@@ -32,12 +32,9 @@ export const ENV = {
   CLOUDINARY_API_KEY: requireEnv('CLOUDINARY_API_KEY'),
   CLOUDINARY_API_SECRET: requireEnv('CLOUDINARY_API_SECRET'),
 
-  /** Used for internal API calls from server components */
-  INTERNAL_API_BASE_URL: optionalEnv('INTERNAL_API_BASE_URL', 'http://localhost:3000'),
-
   /** Admin API key — MUST be set for production write operations */
   ADMIN_API_KEY: optionalEnv('ADMIN_API_KEY', ''),
 
   /** Site URL for canonical links / sitemap */
-  SITE_URL: optionalEnv('SITE_URL', 'https://aeronsteels.com'),
+  SITE_URL: optionalEnv('SITE_URL', 'https://aeron-steels-final.vercel.app'),
 } as const;
