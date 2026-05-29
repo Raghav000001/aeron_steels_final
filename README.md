@@ -5,7 +5,7 @@
 <h1 align="center">Aeron Steels Private Limited</h1>
 
 <p align="center">
-  Corporate website for an ISO 9001:2015 certified steel manufacturing and precision component fabrication company based in Rohtak, Haryana.
+  A full-featured corporate website built for an ISO 9001:2015 certified steel manufacturing and precision component fabrication company based in Rohtak, Haryana.
 </p>
 
 <p align="center">
@@ -20,133 +20,87 @@
 
 ---
 
-## 📇 Table of Contents
+## 📖 Overview
 
-- [Pages](#-pages)
-- [Tech Stack](#-tech-stack)
-- [Getting Started](#-getting-started)
-- [Project Structure](#-project-structure)
-- [API Routes](#-api-routes)
-- [Deployment](#-deployment)
+A production-ready corporate website for **Aeron Steels Private Limited** — a steel processing and component manufacturing company. The site serves as a digital storefront showcasing the company's product catalog, manufacturing infrastructure, certifications, and services to industrial buyers across India.
+
+Built from the ground up with Next.js 16, this project demonstrates end-to-end implementation of a content-driven business website with a custom CMS backend, image management pipeline, and automated deployment.
 
 ---
 
-## 🗺️ Pages
+## ✨ Key Features
 
-| Route | Description |
-|---|---|
-| `/` | 🏠 Home — Hero, About, Services, Quote Banner, International Exhibitions |
-| `/about-us` | 🏢 Company profile and history |
-| `/products` | 📦 Product catalog with pagination |
-| `/products/[id]` | 🔍 Product detail with lightbox viewer |
-| `/infrastructure` | 🏭 Facility photo gallery |
-| `/certifications` | ✅ Certifications and compliance |
-| `/contact-us` | 📬 Contact form with email notification |
-| `/sitemap.xml` | 🔗 SEO sitemap |
+### 🏠 Dynamic Home Page
+Assembled from reusable section components — Hero, About, Services, Quote Banner, and International Exhibitions — each with scroll-triggered animations and responsive layouts.
 
-## ⚙️ Tech Stack
+### 📦 Product Catalog with CMS Backend
+- 68 precision-engineered product images uploaded and served via **Cloudinary CDN**
+- Product data stored in **MongoDB** with a Mongoose schema
+- Paginated grid view with hover effects and blur transitions
+- Individual product detail pages with a fullscreen lightbox viewer
+- Automated seed script that reads local images, uploads to Cloudinary, and populates the database in a single command
 
-| Layer | Technology |
-|---|---|
-| ⚛️ Framework | Next.js 16 (App Router, Turbopack) |
-| 📝 Language | TypeScript 5 |
-| 🎨 Styling | Tailwind CSS v4 |
-| 🌀 Animation | Framer Motion |
-| 🗄️ Database | MongoDB via Mongoose 9 |
-| ☁️ Media | Cloudinary (upload, transform, CDN) |
-| 📧 Email | Nodemailer + Mailgen (SMTP) |
-| ✅ Validation | Zod |
-| 🚀 Deployment | Vercel |
+### 🏭 Infrastructure Gallery
+Facility photo gallery with 8 high-resolution images of the manufacturing plant — CNC machines, rolling mills, slitting lines, and more — displayed in a responsive grid with hover zoom.
 
-## 🚀 Getting Started
+### 📬 Contact Enquiry System
+Server-side contact form processing via Nodemailer with HTML email templates (Mailgen). SMTP-based delivery with input validation and error handling.
 
-### 📋 Prerequisites
+### 🔍 SEO & Performance
+- Dynamic sitemap generation covering all routes
+- Structured JSON-LD (Organization schema) for rich search results
+- Open Graph and Twitter card metadata
+- Server-side rendering for content pages
+- Fully typed with TypeScript 5
 
-- ✅ Node.js 20 or later
-- 🗄️ MongoDB Atlas instance (or local MongoDB)
-- ☁️ Cloudinary account
-- 📧 SMTP credentials (Gmail App Password recommended)
+---
 
-### 🔐 Environment Variables
+## 🛠️ Tech Stack
 
-Copy `.env.example` to `.env.local` and fill in the required values:
+| Area | Technology | Why |
+|---|---|---|
+| **Framework** | Next.js 16 (App Router) | SSR, file-based routing, Turbopack dev server |
+| **Language** | TypeScript 5 | Full type safety across the entire codebase |
+| **Styling** | Tailwind CSS v4 | Utility-first, fast iteration, consistent design |
+| **Animation** | Framer Motion | Scroll-triggered animations, hover effects, lightbox transitions |
+| **Database** | MongoDB + Mongoose 9 | Flexible document model for product catalog |
+| **Media** | Cloudinary | Image upload, transformation, and global CDN delivery |
+| **Email** | Nodemailer + Mailgen | Transactional email for contact enquiries |
+| **Validation** | Zod | Runtime input validation for API endpoints |
+| **Deployment** | Vercel | Zero-config deployment, edge network, environment management |
 
-- **SMTP** — host, port, user, password, and recipient email
-- **MongoDB** — connection URI
-- **Cloudinary** — cloud name, API key, and API secret
-- **Optional** — admin API key, site URL
+---
 
-```bash
-cp .env.example .env.local
-```
+## 🏗️ Architecture Highlights
 
-### 💻 Install and Run
+- **Client-Server Separation** — Data-fetching pages (`/products`, `/products/[id]`) use server components with internal API calls, while interactive sections use client components with Framer Motion
+- **Component Isolation** — Home page sections are independent, reusable components (`Hero`, `About`, `Services`, `QuoteBanner`, `Testimonials/Exhibitions`), making the layout easy to reconfigure
+- **API Layer** — RESTful API routes with pagination, admin authentication via Bearer tokens, rate limiting, and structured error responses
+- **Image Pipeline** — Local product images → Cloudinary upload → MongoDB storage → CDN-delivered to the frontend. The seed script handles the entire pipeline automatically
+- **Environment Validation** — Strict environment variable validation at startup via a central `env.ts` module, failing fast on misconfiguration
 
-```bash
-npm install
-npm run dev       # opens http://localhost:3000
-```
-
-### 📦 Build for Production
-
-```bash
-npm run build
-npm start
-```
-
-### 🌱 Seed Product Data
-
-```bash
-npx tsx scripts/seed-products.ts
-```
-
-Reads images from `public/Item Details/`, uploads each to Cloudinary, and inserts the corresponding product records into MongoDB. All existing products are replaced.
+---
 
 ## 📁 Project Structure
 
 ```
-📂 src/
-  📂 app/
-    📄 page.tsx                  Home page assembly
-    📄 layout.tsx                Root layout, SEO metadata, JSON-LD
-    📂 about-us/                 Company information
-    📂 products/                 Product catalog and detail pages
-    📂 infrastructure/           Facility photo gallery
-    📂 certifications/           Certifications display
-    📂 contact-us/               Contact form
-    📂 api/                      REST API routes
-  📂 components/
-    📂 layout/                   Header, Footer
-    📂 sections/                 Home page section components
-    📂 ui/                       Reusable UI primitives
-  📂 lib/                        Utilities (Cloudinary, MongoDB, email, env, validation)
-  📂 models/                     Mongoose schemas
-📂 public/
-  📂 photos/home/                Home page images
-  📂 photos/infra/               Infrastructure gallery images
-  📂 images/                     Logo and legacy assets
+src/
+  app/             Pages + API routes
+  components/      Reusable React components
+  lib/             Utilities (DB, Cloudinary, email, env, validation)
+  models/          Mongoose schemas
+public/
+  photos/          Home and infrastructure images
+  images/          Logo and legacy assets
+scripts/
+  seed-products.ts Automated product seeding pipeline
 ```
 
-## 🌐 API Routes
+---
 
-| Method | Path | Auth | Description |
-|---|---|---|---|
-| 📖 GET | `/api/products` | ❌ No | Paginated product list |
-| 📖 GET | `/api/products/[id]` | ❌ No | Single product by ID |
-| ➕ POST | `/api/products` | 🔑 Bearer token | Create a product |
-| 🌱 POST | `/api/seed` | 🔑 Bearer token | Bulk seed products from local images |
-| 📬 POST | `/api/contact` | ❌ No | Submit a contact enquiry |
+## 🚀 Deployment
 
-The admin Bearer token is set via the `ADMIN_API_KEY` environment variable.
-
-## 🚢 Deployment
-
-1. 📤 Push the repository to GitHub.
-2. 🔄 Import the project into Vercel.
-3. ⚙️ Configure all environment variables in the Vercel dashboard.
-4. 🚀 Deploy.
-
-The sitemap and metadata are pre-configured for SEO. Update `SITE_URL` in your environment to match the production domain.
+Deployed on **Vercel** with automated CI/CD via GitHub. Environment variables managed through Vercel's dashboard for production and preview environments.
 
 ---
 
