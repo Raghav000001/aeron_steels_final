@@ -1,31 +1,10 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import SectionHeading from '../ui/SectionHeading';
-
-const services = [
-  {
-    title: 'Custom Sheet Metal Components',
-    desc: 'With advanced manufacturing capabilities, we produce steel components as per customer drawings, specifications and requirements while maintaining high standards of quality and precision.',
-    img: '/photos/home/custom_sheet_metal_components.png',
-  },
-  {
-    title: 'Slitted Coils',
-    desc: 'We provide high-quality slitted steel coils tailored to customer specifications in various widths, thicknesses, and grades to meet diverse industrial requirements.',
-    img: '/photos/home/slitted_coils.jpeg',
-  },
-  {
-    title: 'Cut-to-length Sheets & Strips',
-    desc: 'We provide precision cut-to-length sheets & strips tailored to customer specifications, ensuring dimensional accuracy and reliable supply for diverse industrial applications.',
-    img: '/photos/home/cut_to_length_sheets_strips.jpeg',
-  },
-  {
-    title: 'Custom Bar Components',
-    desc: 'We manufacture high-quality precise bar components tailored to customer requirements as per their drawings and specifications.',
-    img: '/photos/home/custom_bar_components.png',
-  }
-];
+import { services } from '@/lib/services-data';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -66,9 +45,9 @@ export default function ServicesSection() {
           whileInView="show"
           viewport={{ once: false, margin: "-100px" }}
         >
-          {services.map((svc, idx) => (
+          {services.map((svc) => (
             <motion.div 
-              key={idx} 
+              key={svc.id} 
               className="bg-white shadow-md group"
               variants={cardVariants}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
@@ -95,11 +74,11 @@ export default function ServicesSection() {
 
                 <h3 className="font-bold text-gray-800 text-lg mb-3">{svc.title}</h3>
                 <p className="text-gray-500 text-sm mb-6 leading-relaxed">
-                  {svc.desc}
+                  {svc.shortDesc}
                 </p>
-                <a href="/contact-us" className="font-bold text-[#FF5B22] text-xs uppercase hover:underline">
+                <Link href={`/services/${svc.id}`} className="font-bold text-[#FF5B22] text-xs uppercase hover:underline">
                   Read More &gt;
-                </a>
+                </Link>
               </div>
             </motion.div>
           ))}
