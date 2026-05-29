@@ -1,0 +1,204 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e6]:
+        - img "Aeron Steels" [ref=e7]
+        - generic [ref=e8]:
+          - heading "AERON STEELS" [level=1] [ref=e9]
+          - generic [ref=e10]: Private Limited
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - generic [ref=e13]: ✉
+          - generic [ref=e14]:
+            - generic [ref=e15]: Email
+            - strong [ref=e16]: aeronsteels28@gmail.com
+        - generic [ref=e17]:
+          - generic [ref=e18]: ℡
+          - generic [ref=e19]:
+            - generic [ref=e20]: Call Now
+            - strong [ref=e21]: +91 8307028125
+    - generic [ref=e23]:
+      - list [ref=e24]:
+        - listitem [ref=e25]:
+          - link "HOME" [ref=e26] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e27]:
+          - link "ABOUT US" [ref=e28] [cursor=pointer]:
+            - /url: /about-us
+        - listitem [ref=e29]:
+          - link "INFRASTRUCTURE" [ref=e30] [cursor=pointer]:
+            - /url: /infrastructure
+        - listitem [ref=e31]:
+          - link "CERTIFICATIONS" [ref=e32] [cursor=pointer]:
+            - /url: /certifications
+        - listitem [ref=e33]:
+          - link "PRODUCTS" [ref=e34] [cursor=pointer]:
+            - /url: /products
+        - listitem [ref=e35]:
+          - link "CONTACT US" [ref=e36] [cursor=pointer]:
+            - /url: /contact-us
+      - link "GET A QUOTE" [ref=e37] [cursor=pointer]:
+        - /url: /contact-us
+  - main [ref=e38]:
+    - generic [ref=e43]:
+      - heading "Your Steel, Your Way" [level=1] [ref=e44]
+      - paragraph [ref=e45]: Precision in every process
+      - paragraph [ref=e46]: Transforming Steel into Solutions
+      - button "Contact Us" [ref=e47] [cursor=pointer]
+    - generic [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e53]: About Aeron Steels
+          - heading "From Coil to Component" [level=2] [ref=e55]
+        - paragraph [ref=e56]: At Aeron Steels Private Limited, we transform steel into high-performance solutions. From steel coil processing and cut-to-length sheets & strips to precisely engineered components manufacturing. We combine engineering, quality and reliability to meet evolving industry standards.
+        - paragraph [ref=e57]: Driven by engineering excellence and manufacturing expertise, we bring together steel processing and precision component manufacturing under one roof. We combine technical know-how with robust production capabilities to timely deliver dependable solutions tailored to industry demands.
+        - button "Read More ⊕" [ref=e58] [cursor=pointer]
+      - generic [ref=e59]:
+        - img "Factory Interior" [ref=e62]
+        - img "Industrial detail" [ref=e65]
+    - generic [ref=e67]:
+      - heading "What We Offer" [level=2] [ref=e70]:
+        - generic [ref=e71]: What
+        - strong [ref=e72]: We Offer
+      - generic [ref=e74]:
+        - generic [ref=e75]:
+          - img "Custom Sheet Metal Components" [ref=e77]
+          - generic [ref=e78]:
+            - img [ref=e80]
+            - heading "Custom Sheet Metal Components" [level=3] [ref=e82]
+            - paragraph [ref=e83]: With advanced manufacturing capabilities, we produce steel components as per customer drawings, specifications and requirements while maintaining high standards of quality and precision.
+            - link "Read More >" [ref=e84] [cursor=pointer]:
+              - /url: /contact-us
+        - generic [ref=e85]:
+          - img "Slitted Coils" [ref=e87]
+          - generic [ref=e88]:
+            - img [ref=e90]
+            - heading "Slitted Coils" [level=3] [ref=e92]
+            - paragraph [ref=e93]: We provide high-quality slitted steel coils tailored to customer specifications in various widths, thicknesses, and grades to meet diverse industrial requirements.
+            - link "Read More >" [ref=e94] [cursor=pointer]:
+              - /url: /contact-us
+        - generic [ref=e95]:
+          - img "Cut-to-length Sheets & Strips" [ref=e97]
+          - generic [ref=e98]:
+            - img [ref=e100]
+            - heading "Cut-to-length Sheets & Strips" [level=3] [ref=e102]
+            - paragraph [ref=e103]: We provide precision cut-to-length sheets & strips tailored to customer specifications, ensuring dimensional accuracy and reliable supply for diverse industrial applications.
+            - link "Read More >" [ref=e104] [cursor=pointer]:
+              - /url: /contact-us
+        - generic [ref=e105]:
+          - img "Custom Bar Components" [ref=e107]
+          - generic [ref=e108]:
+            - img [ref=e110]
+            - heading "Custom Bar Components" [level=3] [ref=e112]
+            - paragraph [ref=e113]: We manufacture high-quality precise bar components tailored to customer requirements as per their drawings and specifications.
+            - link "Read More >" [ref=e114] [cursor=pointer]:
+              - /url: /contact-us
+    - generic [ref=e117]:
+      - heading "Get a Quote" [level=2] [ref=e118]
+      - paragraph [ref=e119]: Share your requirements and get a customized quote tailored to your specifications.
+      - button "Get a Quote ⊕" [ref=e120] [cursor=pointer]
+    - generic [ref=e122]:
+      - generic [ref=e123]:
+        - generic [ref=e124]: Our Presence
+        - heading "Participation in International Exhibitions" [level=2] [ref=e125]:
+          - text: Participation in
+          - strong [ref=e126]: International Exhibitions
+      - generic [ref=e127]:
+        - generic [ref=e128]:
+          - img "ACMA Automechanika 2026, New Delhi - Aeron Steels Booth" [ref=e129]
+          - generic [ref=e131]: ACMA Automechanika 2026, New Delhi
+        - generic [ref=e132]:
+          - img "ACMA Automechanika 2026, New Delhi - Exhibition View" [ref=e133]
+          - generic [ref=e135]: ACMA Automechanika 2026, New Delhi
+  - contentinfo [ref=e136]:
+    - generic [ref=e138]:
+      - generic [ref=e139]:
+        - heading "AERON STEELS" [level=1] [ref=e140]
+        - paragraph [ref=e141]: At ASPL, we specialize in high-quality steel products, committed to excellence and innovation in manufacturing. Our dedication ensures we meet the diverse needs of our clients across various industries.
+        - link "READ MORE ⊕" [ref=e142] [cursor=pointer]:
+          - /url: /about-us
+      - generic [ref=e143]:
+        - heading "Quick links" [level=4] [ref=e144]
+        - list [ref=e145]:
+          - listitem [ref=e146]:
+            - link "▸ Privacy Policy" [ref=e147] [cursor=pointer]:
+              - /url: /privacy-policy
+              - generic [ref=e148]: ▸
+              - text: Privacy Policy
+          - listitem [ref=e149]:
+            - link "▸ Help Center" [ref=e150] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e151]: ▸
+              - text: Help Center
+          - listitem [ref=e152]:
+            - link "▸ Terms & Uses" [ref=e153] [cursor=pointer]:
+              - /url: /terms
+              - generic [ref=e154]: ▸
+              - text: Terms & Uses
+          - listitem [ref=e155]:
+            - link "▸ Careers" [ref=e156] [cursor=pointer]:
+              - /url: /careers
+              - generic [ref=e157]: ▸
+              - text: Careers
+          - listitem [ref=e158]:
+            - link "▸ Meet the Team" [ref=e159] [cursor=pointer]:
+              - /url: /about-us
+              - generic [ref=e160]: ▸
+              - text: Meet the Team
+          - listitem [ref=e161]:
+            - link "▸ Contact" [ref=e162] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e163]: ▸
+              - text: Contact
+      - generic [ref=e164]:
+        - heading "Our Services" [level=4] [ref=e165]
+        - list [ref=e166]:
+          - listitem [ref=e167]:
+            - link "▸ Custom Sheet Metal Components" [ref=e168] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e169]: ▸
+              - text: Custom Sheet Metal Components
+          - listitem [ref=e170]:
+            - link "▸ Slitted Coils" [ref=e171] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e172]: ▸
+              - text: Slitted Coils
+          - listitem [ref=e173]:
+            - link "▸ Cut-to-length Sheets & Strips" [ref=e174] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e175]: ▸
+              - text: Cut-to-length Sheets & Strips
+          - listitem [ref=e176]:
+            - link "▸ Custom Bar Components" [ref=e177] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e178]: ▸
+              - text: Custom Bar Components
+      - generic [ref=e179]:
+        - heading "Contact Us" [level=4] [ref=e180]
+        - generic [ref=e181]:
+          - generic [ref=e182]:
+            - generic [ref=e183]: ⌂
+            - paragraph [ref=e184]:
+              - text: Khewat no 1306, Village Baniyani,
+              - text: Bhiwani Road, Rohtak, Haryana 124001
+          - generic [ref=e185]:
+            - generic [ref=e186]: 📱
+            - strong [ref=e187]: +91 8307028125
+          - generic [ref=e188]:
+            - generic [ref=e189]: ✉
+            - paragraph [ref=e190]: aeronsteels28@gmail.com
+        - generic [ref=e191]:
+          - link "Facebook" [ref=e192] [cursor=pointer]:
+            - /url: https://facebook.com/aeronsteels
+            - text: f
+          - link "Twitter" [ref=e193] [cursor=pointer]:
+            - /url: https://twitter.com/aeronsteels
+            - text: t
+          - link "LinkedIn" [ref=e194] [cursor=pointer]:
+            - /url: https://linkedin.com/company/aeronsteels
+            - text: in
+          - link "YouTube" [ref=e195] [cursor=pointer]:
+            - /url: https://youtube.com/@aeronsteels
+            - text: yt
+  - button "Open Next.js Dev Tools" [ref=e201] [cursor=pointer]:
+    - img [ref=e202]

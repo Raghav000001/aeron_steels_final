@@ -16,7 +16,7 @@ export default function Footer() {
               At ASPL, we specialize in high-quality steel products, committed to excellence and innovation in manufacturing. Our dedication ensures we meet the diverse needs of our clients across various industries.
             </p>
             <Link href="/about-us" className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 rounded-full uppercase text-[0.75rem] transition-colors duration-300 inline-block">
-              READ MORE ⊕
+              KNOW MORE ⊕
             </Link>
           </div>
 
@@ -26,12 +26,11 @@ export default function Footer() {
               Quick links
             </h4>
             <ul className="flex flex-col gap-4 text-sm text-gray-400">
-              <li><Link href="/privacy-policy" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Privacy Policy</Link></li>
-              <li><Link href="/contact-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Help Center</Link></li>
-              <li><Link href="/terms" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Terms & Uses</Link></li>
-              <li><Link href="/careers" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Careers</Link></li>
-              <li><Link href="/about-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Meet the Team</Link></li>
-              <li><Link href="/contact-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Contact</Link></li>
+              <li><Link href="/about-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> About Us</Link></li>
+              <li><Link href="/products" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Products</Link></li>
+              <li><Link href="/infrastructure" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Infrastructure</Link></li>
+              <li><Link href="/certifications" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Certifications</Link></li>
+              <li><Link href="/contact-us" className="hover:text-[#FF5B22] transition-colors flex items-center gap-2"><span className="text-[#FF5B22] text-xs">▸</span> Contact Us</Link></li>
             </ul>
           </div>
 
