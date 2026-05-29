@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/images/logo.png" alt="Aeron Steels" width="120" />
+  <img src="public/images/logo.png" alt="Aeron Steels" width="120" />
 </p>
 
 <h1 align="center">Aeron Steels Private Limited</h1>
