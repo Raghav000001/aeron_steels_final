@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 async function getProducts(): Promise<ProductData[]> {
   try {
     const baseUrl = process.env.INTERNAL_API_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/products`, {
+    const res = await fetch(`${baseUrl}/api/products?limit=100`, {
       cache: 'no-store',
     });
     if (!res.ok) throw new Error('Failed to fetch');
