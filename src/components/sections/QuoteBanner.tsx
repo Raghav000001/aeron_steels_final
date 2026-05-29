@@ -7,7 +7,7 @@ export default function QuoteBannerSection() {
   return (
     <section 
       className="relative py-20 bg-cover bg-center overflow-hidden"
-      style={{ backgroundImage: "url('/images/hero_bg_1778760928163.png')" }}
+      style={{ backgroundImage: "url('/photos/home/custom_sheet_metal_components.png')" }}
     >
       <div className="absolute inset-0 bg-[#16212b]/80"></div>
       
@@ -25,7 +25,7 @@ export default function QuoteBannerSection() {
           viewport={{ once: false }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          GET A <span className="text-[#FF5B22]">QUOTE</span>
+          Get a <span className="text-[#FF5B22]">Quote</span>
         </motion.h2>
         
         <motion.div 
@@ -43,8 +43,7 @@ export default function QuoteBannerSection() {
           viewport={{ once: false }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris hendrerit rutrum odio et venenatis.
-          Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          Share your requirements and get a customized quote tailored to your specifications.
         </motion.p>
 
         <motion.button 

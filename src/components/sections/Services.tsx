@@ -6,40 +6,24 @@ import SectionHeading from '../ui/SectionHeading';
 
 const services = [
   {
-    title: 'Component Manufacturing',
-    desc: 'Specializing in high-quality steel component manufacturing, equipped with modern equipment for industrial applications.',
-    img: '/images/service_chemical_1778761046335.png',
-    iconActive: true,
+    title: 'Custom Sheet Metal Components',
+    desc: 'With advanced manufacturing capabilities, we produce steel components as per customer drawings, specifications and requirements while maintaining high standards of quality and precision.',
+    img: '/photos/home/custom_sheet_metal_components.png',
   },
   {
-    title: 'Custom Cutting',
-    desc: 'Precision custom cutting services ensuring that all distinct material specifications are met efficiently.',
-    img: '/images/service_mechanical_1778761074973.png',
-    iconActive: false,
+    title: 'Slitted Coils',
+    desc: 'We provide high-quality slitted steel coils tailored to customer specifications in various widths, thicknesses, and grades to meet diverse industrial requirements.',
+    img: '/photos/home/slitted_coils.jpeg',
   },
   {
-    title: 'Durable Products',
-    desc: 'Developing heavy duty steel sheets and plates known for longevity and wear resistance across the market.',
-    img: '/images/service_power_1778761289382.png',
-    iconActive: false,
+    title: 'Cut-to-length Sheets & Strips',
+    desc: 'We provide precision cut-to-length sheets & strips tailored to customer specifications, ensuring dimensional accuracy and reliable supply for diverse industrial applications.',
+    img: '/photos/home/cut_to_length_sheets_strips.jpeg',
   },
   {
-    title: 'Quality Assurance',
-    desc: 'Adhering to strict international quality standards through comprehensive inspection of all manufactured plates.',
-    img: '/images/service_material_1778761584582.png',
-    iconActive: false,
-  },
-  {
-    title: 'Custom Fabrication',
-    desc: 'Offering flexible fabrication to produce high-tolerance custom designs based on specialized client blueprints.',
-    img: '/images/service_power_1778761289382.png',
-    iconActive: false,
-  },
-  {
-    title: 'Efficient Service',
-    desc: 'A dedicated team committed to ensuring rapid turnover and 24/7 customer support for complex technical queries.',
-    img: '/images/hero_bg_1778760928163.png',
-    iconActive: false,
+    title: 'Custom Bar Components',
+    desc: 'We manufacture high-quality precise bar components tailored to customer requirements as per their drawings and specifications.',
+    img: '/photos/home/custom_bar_components.png',
   }
 ];
 
@@ -71,22 +55,12 @@ export default function ServicesSection() {
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <SectionHeading titleLight="OUR" titleBold="SERVICES" centered={true} />
-          <motion.p 
-            className="text-center text-gray-500 max-w-2xl mx-auto mt-6 text-sm"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar lacus at feugiat iaculis. Suspendisse eu viverra mauris.
-            Ut amet facilisis lectus. Pellentesque mattis auctor quam, et feugiat elit volutpat vel.
-          </motion.p>
+          <SectionHeading titleLight="What" titleBold="We Offer" centered={true} />
         </motion.div>
 
         {/* Grid with staggered cards */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
@@ -112,9 +86,7 @@ export default function ServicesSection() {
               <div className="relative p-8 pt-10">
                 {/* Floating Icon Box */}
                 <div 
-                  className={`absolute -top-6 left-6 w-12 h-12 flex items-center justify-center ${
-                    svc.iconActive ? 'bg-[#FF5B22] text-white' : 'bg-gray-100 text-gray-600'
-                  } transition-colors duration-300 group-hover:bg-[#FF5B22] group-hover:text-white`}
+                  className="absolute -top-6 left-6 w-12 h-12 flex items-center justify-center bg-[#FF5B22] text-white transition-colors duration-300"
                 >
                   <svg fill="currentColor" viewBox="0 0 20 20" className="w-6 h-6">
                     <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"></path>

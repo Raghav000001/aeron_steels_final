@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
 import { Product } from '@/models/Product';
 import { uploadImage } from '@/lib/cloudinary';
+import { errorResponse, successResponse, requireAdmin } from '@/lib/api-helpers';
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,19 +18,21 @@ export async function GET(request: NextRequest) {
       Product.countDocuments(),
     ]);
 
-    return Response.json({
-      products,
-      total,
+    return successResponse(products, 200, {
       page,
+      total,
       totalPages: Math.ceil(total / limit),
     });
   } catch (error) {
     console.error('GET /api/products error:', error);
-    return Response.json({ error: 'Failed to fetch products' }, { status: 500 });
+    return errorResponse('Failed to fetch products', 500);
   }
 }
 
 export async function POST(request: Request) {
+  const authError = requireAdmin(request);
+  if (authError) return authError;
+
   try {
     const contentType = request.headers.get('content-type') || '';
 
@@ -42,10 +45,10 @@ export async function POST(request: Request) {
       const imageFile = formData.get('image');
 
       if (!titleField || typeof titleField !== 'string' || !titleField.trim()) {
-        return Response.json({ error: 'Product title is required' }, { status: 400 });
+        return errorResponse('Product title is required', 400);
       }
       if (!imageFile || !(imageFile instanceof File)) {
-        return Response.json({ error: 'Product image is required' }, { status: 400 });
+        return errorResponse('Product image is required', 400);
       }
 
       title = titleField.trim();
@@ -55,10 +58,10 @@ export async function POST(request: Request) {
     } else {
       const body = await request.json();
       if (!body.title || !body.title.trim()) {
-        return Response.json({ error: 'Product title is required' }, { status: 400 });
+        return errorResponse('Product title is required', 400);
       }
       if (!body.src) {
-        return Response.json({ error: 'Product image URL is required' }, { status: 400 });
+        return errorResponse('Product image URL is required', 400);
       }
 
       title = body.title.trim();
@@ -69,9 +72,9 @@ export async function POST(request: Request) {
 
     const product = await Product.create({ title, src });
 
-    return Response.json({ product }, { status: 201 });
+    return successResponse({ product }, 201);
   } catch (error) {
     console.error('POST /api/products error:', error);
-    return Response.json({ error: 'Failed to create product' }, { status: 500 });
+    return errorResponse('Failed to create product', 500);
   }
 }

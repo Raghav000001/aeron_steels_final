@@ -13,6 +13,7 @@ const ProductSchema = new Schema<IProduct>(
       type: String,
       required: [true, 'Product title is required'],
       trim: true,
+      maxlength: [200, 'Title must be under 200 characters'],
     },
     src: {
       type: String,
@@ -21,6 +22,9 @@ const ProductSchema = new Schema<IProduct>(
   },
   { timestamps: true }
 );
+
+ProductSchema.index({ createdAt: -1 });
+ProductSchema.index({ title: 1 });
 
 export const Product =
   mongoose.models.Product || mongoose.model<IProduct>('Product', ProductSchema);

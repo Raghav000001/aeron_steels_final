@@ -1,6 +1,7 @@
 import { connectDB } from '@/lib/mongodb';
 import { Product } from '@/models/Product';
 import { uploadImage } from '@/lib/cloudinary';
+import { errorResponse, successResponse, requireAdmin } from '@/lib/api-helpers';
 import fs from 'fs';
 import path from 'path';
 
@@ -55,7 +56,10 @@ const IMAGE_MAP: Record<string, string[]> = {
   ],
 };
 
-export async function POST() {
+export async function POST(request: Request) {
+  const authError = requireAdmin(request);
+  if (authError) return authError;
+
   try {
     await connectDB();
 
@@ -76,7 +80,6 @@ export async function POST() {
       }
 
       const buffer = fs.readFileSync(filePath);
-
       const cloudinaryUrl = await uploadImage(buffer);
 
       for (const title of titles) {
@@ -86,16 +89,18 @@ export async function POST() {
 
     const created = await Product.insertMany(allProducts);
 
-    return Response.json({
-      success: true,
-      message: `Seeded ${created.length} products`,
-      products: created.map((p) => ({ _id: p._id, title: p.title })),
-    });
+    return successResponse(
+      {
+        message: `Seeded ${created.length} products`,
+        products: created.map((p) => ({ _id: p._id, title: p.title })),
+      },
+      200
+    );
   } catch (error) {
     console.error('Seed error:', error);
-    return Response.json(
-      { success: false, error: error instanceof Error ? error.message : 'Seed failed' },
-      { status: 500 }
+    return errorResponse(
+      error instanceof Error ? error.message : 'Seed failed',
+      500
     );
   }
 }

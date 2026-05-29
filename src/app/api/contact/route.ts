@@ -1,24 +1,28 @@
 import { after } from 'next/server';
 import { sendContactNotification, sendSubmissionAcknowledgment } from '@/lib/email';
+import { errorResponse, successResponse, checkRateLimit } from '@/lib/api-helpers';
+import { contactFormSchema } from '@/lib/validations';
 
 export async function POST(request: Request) {
   try {
+    const ip =
+      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
+
+    if (!checkRateLimit(`contact:${ip}`, 5, 60_000)) {
+      return errorResponse('Too many requests. Please try again later.', 429);
+    }
+
     const body = await request.json();
-    const { name, email, subject, message } = body;
 
-    if (!name || !email || !subject || !message) {
-      return Response.json(
-        { success: false, error: 'All fields are required.' },
-        { status: 400 }
-      );
+    const parsed = contactFormSchema.safeParse(body);
+    if (!parsed.success) {
+      const firstError = parsed.error.issues[0]?.message || 'Validation failed';
+      return errorResponse(firstError, 400);
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return Response.json(
-        { success: false, error: 'Invalid email address.' },
-        { status: 400 }
-      );
-    }
+    const { name, email, subject, message } = parsed.data;
 
     after(async () => {
       try {
@@ -31,14 +35,11 @@ export async function POST(request: Request) {
       }
     });
 
-    return Response.json(
-      { success: true, message: 'Thank you for reaching out! We will get back to you shortly.' },
-      { status: 200 }
+    return successResponse(
+      { message: 'Thank you for reaching out! We will get back to you shortly.' },
+      200
     );
   } catch {
-    return Response.json(
-      { success: false, error: 'Invalid request payload.' },
-      { status: 400 }
-    );
+    return errorResponse('Invalid request payload.', 400);
   }
 }

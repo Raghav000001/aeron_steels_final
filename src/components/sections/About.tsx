@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import SectionHeading from '../ui/SectionHeading';
 
 export default function AboutSection() {
   return (
@@ -29,8 +28,8 @@ export default function AboutSection() {
                 About Aeron Steels
               </motion.span>
               <div className="flex flex-col items-start gap-4">
-                <h2 className="text-3xl lg:text-4xl uppercase leading-tight font-light text-gray-800">
-                  <span className="font-bold text-[#FF5B22]">STEEL INNOVATION</span> AND MANUFACTURING
+                <h2 className="text-3xl lg:text-4xl uppercase leading-tight font-bold text-gray-800">
+                  <span className="text-[#FF5B22]">From Coil</span> to Component
                 </h2>
                 <motion.div 
                   className="w-12 h-1 bg-[#FF5B22]"
@@ -49,8 +48,10 @@ export default function AboutSection() {
               viewport={{ once: false }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              At ASPL, we specialize in high-quality steel products, committed to excellence and innovation in manufacturing. 
-              Our dedication ensures we meet the diverse needs of our clients across various industries. 
+              At Aeron Steels Private Limited, we transform steel into high-performance solutions. 
+              From steel coil processing and cut-to-length sheets & strips to precisely engineered 
+              components manufacturing. We combine engineering, quality and reliability to meet 
+              evolving industry standards.
             </motion.p>
             <motion.p 
               className="text-gray-600 mb-8 leading-relaxed"
@@ -59,7 +60,10 @@ export default function AboutSection() {
               viewport={{ once: false }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              With 10+ years on the market, we maintain high quality standards across our modern equipment. We pride ourselves on providing highly durable products through custom fabrication while ensuring stringent quality assurance and efficient service.
+              Driven by engineering excellence and manufacturing expertise, we bring together 
+              steel processing and precision component manufacturing under one roof. We combine 
+              technical know-how with robust production capabilities to timely deliver dependable 
+              solutions tailored to industry demands.
             </motion.p>
 
             <motion.button 
@@ -97,7 +101,7 @@ export default function AboutSection() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
                 <img 
-                  src="/images/hero_bg_1778760928163.png" 
+                  src="/photos/home/big_circle.jpg" 
                   alt="Factory Interior" 
                   className="w-full h-full object-cover"
                 />
@@ -118,8 +122,8 @@ export default function AboutSection() {
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               >
                 <img 
-                  src="/images/about_worker_1778760981240.png" 
-                  alt="Industrial Worker" 
+                  src="/photos/home/small_circle.jpg" 
+                  alt="Industrial detail" 
                   className="w-full h-full object-cover"
                 />
               </motion.div>

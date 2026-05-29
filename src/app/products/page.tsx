@@ -1,4 +1,4 @@
-import React from 'react';
+import type { Metadata } from 'next';
 import PageBanner from '@/components/ui/PageBanner';
 import ProductGrid from '@/components/ui/product-grid';
 
@@ -8,15 +8,26 @@ interface ProductData {
   src: string;
 }
 
+export const metadata: Metadata = {
+  title: 'Products',
+  description:
+    'Browse our catalog of high-quality steel products including mounting plates, CTL sheets, custom fabricated components, and precision-machined parts by Aeron Steels Private Limited.',
+  openGraph: {
+    title: 'Products | Aeron Steels',
+    description:
+      'Steel products catalog — mounting plates, CTL sheets, fabricated components, and more from Aeron Steels.',
+  },
+};
+
 async function getProducts(): Promise<ProductData[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const baseUrl = process.env.INTERNAL_API_BASE_URL || 'http://localhost:3000';
     const res = await fetch(`${baseUrl}/api/products`, {
       cache: 'no-store',
     });
     if (!res.ok) throw new Error('Failed to fetch');
     const data = await res.json();
-    return data.products as ProductData[];
+    return (data.data || data.products) as ProductData[];
   } catch {
     return [];
   }
@@ -27,12 +38,12 @@ export default async function ProductsPage() {
 
   return (
     <main>
-      <PageBanner 
-        title="Products" 
-        subtitle="Home > Products" 
-        bgImage="/images/service_material_1778761584582.png" 
+      <PageBanner
+        title="Products"
+        subtitle="Home > Products"
+        bgImage="/images/service_material_1778761584582.png"
       />
-      
+
       <section className="py-28 bg-white">
         <div className="max-w-[1240px] mx-auto px-6">
           {products.length === 0 ? (

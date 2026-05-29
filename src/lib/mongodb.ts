@@ -14,6 +14,7 @@ interface MongooseCache {
 }
 
 declare global {
+   
   var mongooseCache: MongooseCache | undefined;
 }
 
@@ -22,6 +23,18 @@ const cached: MongooseCache = global.mongooseCache || { conn: null, promise: nul
 if (!global.mongooseCache) {
   global.mongooseCache = cached;
 }
+
+mongoose.connection.on('connected', () => {
+  console.log('[MongoDB] Connected successfully');
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error('[MongoDB] Connection error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.warn('[MongoDB] Disconnected');
+});
 
 export async function connectDB() {
   if (cached.conn) {
