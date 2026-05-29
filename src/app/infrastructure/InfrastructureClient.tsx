@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import PageBanner from '@/components/ui/PageBanner';
 
 const images = [
@@ -29,6 +29,8 @@ const imageVariants = {
 };
 
 export default function InfrastructureClient() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <main>
       <PageBanner
@@ -66,9 +68,10 @@ export default function InfrastructureClient() {
             {images.map((src, i) => (
               <motion.div
                 key={i}
-                className="group overflow-hidden relative shadow-md"
+                className="group overflow-hidden relative shadow-md cursor-pointer"
                 variants={imageVariants}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                onClick={() => setSelectedImage(src)}
               >
                 <img
                   src={src}
@@ -76,8 +79,8 @@ export default function InfrastructureClient() {
                   className="w-full h-56 md:h-72 object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="text-white border-2 border-white px-4 md:px-6 py-2 uppercase text-[0.65rem] md:text-sm font-bold tracking-widest hover:bg-white hover:text-black transition-colors cursor-pointer">
-                    View Details
+                  <span className="text-white border-2 border-white px-4 md:px-6 py-2 uppercase text-[0.65rem] md:text-sm font-bold tracking-widest hover:bg-white hover:text-black transition-colors">
+                    Click to Enlarge
                   </span>
                 </div>
               </motion.div>
@@ -85,6 +88,38 @@ export default function InfrastructureClient() {
           </motion.div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 md:p-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => setSelectedImage(null)}
+          >
+            <motion.button
+              className="absolute top-6 right-6 text-white/70 hover:text-white text-3xl z-10"
+              onClick={() => setSelectedImage(null)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              &#10005;
+            </motion.button>
+            <motion.img
+              src={selectedImage}
+              alt="Aeron Steels facility"
+              className="max-w-full max-h-full object-contain drop-shadow-2xl"
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
