@@ -55,7 +55,7 @@ export default function CertificationsClient() {
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 rounded-lg transition-colors duration-300 z-20 flex items-center justify-center">
                     <motion.span
-                      className="text-white text-sm font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#FF5B22] px-5 py-2 rounded-sm shadow-lg"
+                      className="text-white text-sm font-bold uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#FF5B22] px-4 py-2 rounded-sm shadow-lg whitespace-nowrap"
                       initial={false}
                     >
                       Click to Enlarge
