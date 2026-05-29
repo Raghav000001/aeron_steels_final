@@ -15,7 +15,7 @@ interface ProductGridProps {
   itemsPerPage?: number;
 }
 
-export default function ProductGrid({ products, itemsPerPage = 6 }: ProductGridProps) {
+export default function ProductGrid({ products, itemsPerPage = 12 }: ProductGridProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [hovered, setHovered] = useState<number | null>(null);
   const totalPages = Math.ceil(products.length / itemsPerPage);
