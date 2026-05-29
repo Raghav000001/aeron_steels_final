@@ -49,7 +49,7 @@ export default function QuoteBannerSection() {
         </motion.p>
 
         <motion.button 
-          className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 rounded-full uppercase text-sm transition-colors duration-300 shadow-lg cursor-pointer"
+          className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-4 px-10 md:py-3 md:px-8 rounded-full uppercase text-base md:text-sm transition-colors duration-300 shadow-lg cursor-pointer"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: false }}

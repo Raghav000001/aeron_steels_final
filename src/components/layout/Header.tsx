@@ -84,7 +84,7 @@ export default function Header() {
             ))}
           </ul>
           
-          <Link href="/contact-us" className="bg-[#FF5B22] hover:bg-[#e04b19] text-white px-5 lg:px-8 text-[0.6rem] lg:text-[0.7rem] font-bold uppercase transition-colors self-stretch flex items-center">
+          <Link href="/contact-us" className="bg-[#FF5B22] hover:bg-[#e04b19] text-white px-6 lg:px-8 text-[0.75rem] lg:text-[0.7rem] font-bold uppercase transition-colors self-stretch flex items-center">
             GET A QUOTE
           </Link>
         </div>
