@@ -10,6 +10,7 @@ interface ProductData {
   _id: string;
   title: string;
   src: string;
+  createdAt: Date;
 }
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ async function getProducts(): Promise<ProductData[]> {
       _id: (p._id as { toString(): string }).toString(),
       title: p.title,
       src: p.src,
+      createdAt: p.createdAt,
     }));
   } catch (error) {
     console.error('getProducts error:', error);

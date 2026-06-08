@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import SpecSheetsModal from '@/components/ui/SpecSheetsModal';
 
 const navLinks = [
   { href: '/', label: 'HOME' },
@@ -13,61 +14,57 @@ const navLinks = [
   { href: '/contact-us', label: 'CONTACT US' },
 ];
 
-const PRODUCT_CATEGORIES = [
+interface MenuCategory {
+  slug: string;
+  displayName: string;
+  type: 'page' | 'modal';
+  route: string;
+  icon: string;
+}
+
+const PRODUCT_MENU_CATEGORIES: MenuCategory[] = [
   {
-    title: 'Sheets & Coils',
-    items: ['HR/HRPO & CR CTL Sheets', 'Galvanized Steel Coils', 'Carbon Steel Plates HR'],
+    slug: 'center-bearing-packets',
+    displayName: 'Center Bearing Packets',
+    type: 'page',
+    route: '/products/center-bearing-packets',
+    icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z',
   },
   {
-    title: 'Heavy Fabrication',
-    items: ['Eicher Jumbo Front Plates 6MM', 'Heavy Duty Flanges MS', 'Power Press Components', 'Fabricated Base Plates', 'Custom CNC Machined Parts'],
+    slug: 'mounting-plates',
+    displayName: 'Mounting Plates',
+    type: 'page',
+    route: '/products/mounting-plates',
+    icon: 'M4 16l4.58-4.58a1 1 0 011.41 0L12 13.41l4.59-4.59a1 1 0 011.41 0L20 12m-8-8v4m0 12v-4m-8-4h4m12 0h-4',
   },
   {
-    title: 'Precision & Industrial Parts',
-    items: ['Leyland Front Engine Plates', 'Precision Shaft Components', 'Mechanical Seal Housings', 'Metacon Engine Mounting Plate', 'Chemical Resistant Liners', 'Industrial Bearing Housings', 'Hydraulic Cylinder Parts'],
+    slug: 'suspension-plates',
+    displayName: 'Suspension Plates',
+    type: 'page',
+    route: '/products/suspension-plates',
+    icon: 'M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z',
   },
   {
-    title: 'Mounting & Structural',
-    items: ['Cabin 4018 Mounting Plates', 'Structural Steel Supports', 'Custom Fabricated Brackets', 'Tata Ace Gear Box Plates', 'Transmission Mounting Kits', 'Chassis Reinforcement Plates', 'Axle Mounting Assemblies', 'Radiator Support Brackets', 'Engine Bay Mounting Rails', 'Suspension Mounting Plates', 'Frame Cross Members'],
+    slug: 'hr-hrpo-slit-coils',
+    displayName: 'HR / HRPO Slit Coils',
+    type: 'modal',
+    route: '',
+    icon: 'M4 8V2h16v6M4 8v8M4 8H2m18 0v8m0-8h2M4 16h16M4 16H2m18 0h2M6 12h12',
+  },
+  {
+    slug: 'hr-hrpo-crca-sheets-strips',
+    displayName: 'HR / HRPO & CRCA Sheets & Strips',
+    type: 'modal',
+    route: '',
+    icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM6 20V4h7v5h5v11H6z',
   },
 ];
-
-const categoryLookup: Record<string, number> = {};
-PRODUCT_CATEGORIES.forEach((cat, idx) => {
-  cat.items.forEach((title) => {
-    categoryLookup[title] = idx;
-  });
-});
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const [products, setProducts] = useState<{ _id: string; title: string }[]>([]);
-
-  useEffect(() => {
-    fetch('/api/products?limit=200')
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.success && Array.isArray(json.data)) {
-          setProducts(json.data);
-        }
-      })
-      .catch(() => {/* silently fail — nav works without dropdown */});
-  }, []);
-
-  const groupedProducts = useMemo(() => {
-    const groups: { _id: string; title: string }[][] = PRODUCT_CATEGORIES.map(() => []);
-    const unmatched: { _id: string; title: string }[] = [];
-    products.forEach((p) => {
-      const idx = categoryLookup[p.title];
-      if (idx !== undefined) groups[idx].push(p);
-      else unmatched.push(p);
-    });
-    // Distribute unmatched products evenly across all columns — never hide any product
-    unmatched.forEach((p, i) => groups[i % groups.length].push(p));
-    return groups;
-  }, [products]);
+  const [modalSlug, setModalSlug] = useState<string | null>(null);
 
   return (
     <header className="w-full bg-white shadow-sm font-sans z-50 sticky top-0">
@@ -100,7 +97,7 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Contact Info - hidden on mobile when menu open */}
+          {/* Contact Info */}
           <div className="hidden md:flex flex-col sm:flex-row gap-4 lg:gap-12">
             <div className="flex items-center gap-3">
               <span className="text-2xl md:text-3xl text-[#FF5B22]">✉</span>
@@ -153,15 +150,15 @@ export default function Header() {
               );
             })}
           </ul>
-          
+
           <Link href="/contact-us" className="bg-[#FF5B22] hover:bg-[#e04b19] text-white px-8 md:px-6 lg:px-8 text-sm md:text-[0.75rem] lg:text-[0.7rem] font-bold uppercase transition-colors self-stretch flex items-center">
             GET A QUOTE
           </Link>
         </div>
 
-        {/* Mega Menu — positioned directly below navbar */}
+        {/* Mega Menu — 5 Category Cards */}
         <AnimatePresence>
-          {productsOpen && products.length > 0 && (
+          {productsOpen && (
             <>
               {/* Backdrop */}
               <motion.div
@@ -182,26 +179,19 @@ export default function Header() {
                 onMouseLeave={() => setProductsOpen(false)}
                 className="absolute top-full left-0 right-0 z-50 bg-white shadow-2xl border-t border-gray-100"
               >
-                <div className="max-w-[1240px] mx-auto px-6 py-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-8">
-                    {PRODUCT_CATEGORIES.map((cat, catIdx) => (
-                      <div key={cat.title}>
-                        <h3 className="text-base font-bold text-gray-900 tracking-wide mb-4 pb-2 border-b border-gray-200">
-                          {cat.title}
-                        </h3>
-                        <ul className="space-y-1 max-h-[280px] overflow-y-auto">
-                          {groupedProducts[catIdx]?.map((p) => (
-                            <li key={p._id}>
-                              <Link
-                                href={`/products/${p._id}`}
-                                className="block text-sm text-gray-600 hover:text-[#FF5B22] hover:bg-orange-50 px-3 py-2 rounded-md transition-all duration-150"
-                              >
-                                {p.title}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                <div className="max-w-[900px] mx-auto px-6 py-10">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    {PRODUCT_MENU_CATEGORIES.map((cat) => (
+                      <CategoryCard
+                        key={cat.slug}
+                        category={cat}
+                        onClick={() => {
+                          setProductsOpen(false);
+                          if (cat.type === 'modal') {
+                            setModalSlug(cat.slug);
+                          }
+                        }}
+                      />
                     ))}
                   </div>
                 </div>
@@ -242,7 +232,7 @@ export default function Header() {
                     >
                       <button
                         onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
-                        className="flex items-center justify-between w-full text-white text-sm font-bold uppercase py-3 hover:text-[#FF5B22] transition-colors border-b border-white/5"
+                        className="flex items-center justify-between w-full text-white text-sm font-bold uppercase py-3 hover:text-[#FF5B22] transition-colors border-b border-white/5 cursor-pointer"
                       >
                         PRODUCTS
                         <motion.svg
@@ -265,17 +255,33 @@ export default function Header() {
                             transition={{ duration: 0.2 }}
                             className="overflow-hidden"
                           >
-                            <div className="py-2 space-y-1 pl-4">
-                              {products.map((p) => (
-                                <Link
-                                  key={p._id}
-                                  href={`/products/${p._id}`}
-                                  onClick={() => setMenuOpen(false)}
-                                  className="block text-sm text-gray-300 hover:text-[#FF5B22] py-2 transition-colors"
-                                >
-                                  {p.title}
-                                </Link>
-                              ))}
+                            <div className="py-3 space-y-1 pl-4">
+                              {PRODUCT_MENU_CATEGORIES.map((cat) => {
+                                if (cat.type === 'page') {
+                                  return (
+                                    <Link
+                                      key={cat.slug}
+                                      href={cat.route}
+                                      onClick={() => { setMenuOpen(false); setMobileProductsOpen(false); }}
+                                      className="block text-sm text-gray-300 hover:text-[#FF5B22] py-2.5 transition-colors"
+                                    >
+                                      {cat.displayName}
+                                    </Link>
+                                  );
+                                }
+                                return (
+                                  <button
+                                    key={cat.slug}
+                                    onClick={() => {
+                                      setModalSlug(cat.slug);
+                                      setMobileProductsOpen(false);
+                                    }}
+                                    className="block w-full text-left text-sm text-gray-300 hover:text-[#FF5B22] py-2.5 transition-colors cursor-pointer"
+                                  >
+                                    {cat.displayName}
+                                  </button>
+                                );
+                              })}
                             </div>
                           </motion.div>
                         )}
@@ -316,6 +322,61 @@ export default function Header() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Spec Sheets Modal */}
+      <SpecSheetsModal
+        slug={modalSlug || ''}
+        open={!!modalSlug}
+        onClose={() => setModalSlug(null)}
+      />
     </header>
+  );
+}
+
+function CategoryCard({ category, onClick }: { category: MenuCategory; onClick: () => void }) {
+  const content = (
+    <div className="group relative bg-white border-2 border-gray-100 rounded-xl p-5 h-full flex flex-col items-center justify-center text-center hover:border-[#FF5B22] hover:shadow-lg hover:shadow-orange-100 transition-all duration-300 min-h-[120px] cursor-pointer">
+      {/* Icon */}
+      <svg
+        className="w-8 h-8 text-[#FF5B22] mb-3 group-hover:scale-110 transition-transform duration-300"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={1.5}
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d={category.icon} />
+      </svg>
+
+      {/* Title */}
+      <span className="text-xs lg:text-sm font-bold text-gray-800 group-hover:text-[#FF5B22] transition-colors leading-snug">
+        {category.displayName}
+      </span>
+
+      {/* Arrow for page categories */}
+      {category.type === 'page' && (
+        <span className="mt-2 text-[#FF5B22] opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs">
+          Browse &rarr;
+        </span>
+      )}
+      {category.type === 'modal' && (
+        <span className="mt-2 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs">
+          View Specs &rarr;
+        </span>
+      )}
+    </div>
+  );
+
+  if (category.type === 'page') {
+    return (
+      <Link href={category.route} onClick={onClick}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button onClick={onClick} className="w-full text-left">
+      {content}
+    </button>
   );
 }

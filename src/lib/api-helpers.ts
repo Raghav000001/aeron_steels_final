@@ -1,10 +1,5 @@
-/**
- * Shared API utilities: response helpers, auth middleware, rate limiting.
- */
-
 import { ENV } from './env';
 
-// ─── Response Helpers ────────────────────────────────────────────
 
 export interface ApiResponse<T = unknown> {
   success: boolean;
@@ -29,12 +24,7 @@ export function errorResponse(error: string, status = 400) {
   });
 }
 
-// ─── Authentication ──────────────────────────────────────────────
 
-/**
- * Validates Bearer token admin authentication.
- * Returns a 401 Response if invalid, or null if authorized.
- */
 export function requireAdmin(request: Request): Response | null {
   const authHeader = request.headers.get('authorization');
   const apiKey = ENV.ADMIN_API_KEY;
@@ -50,7 +40,6 @@ export function requireAdmin(request: Request): Response | null {
   return null; // authorized
 }
 
-// ─── Rate Limiting ───────────────────────────────────────────────
 
 interface RateLimitEntry {
   count: number;
@@ -69,13 +58,6 @@ setInterval(() => {
   }
 }, 5 * 60 * 1000);
 
-/**
- * Simple in-memory rate limiter.
- * Works for single-instance deployments (Vercel serverless may reset).
- * For production at scale, replace with Upstash Redis.
- *
- * @returns true if allowed, false if rate-limited
- */
 export function checkRateLimit(
   key: string,
   limit = 5,
@@ -97,14 +79,11 @@ export function checkRateLimit(
   return true;
 }
 
-// ─── Input Helpers ───────────────────────────────────────────────
 
-/** Basic email format check (use Zod for production-grade validation) */
 export function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-/** Validate MongoDB ObjectId format */
 export function isValidObjectId(id: string): boolean {
   return /^[a-fA-F0-9]{24}$/.test(id);
 }
