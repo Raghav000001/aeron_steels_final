@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import SpecSheetsModal from '@/components/ui/SpecSheetsModal';
 
 const navLinks = [
   { href: '/', label: 'HOME' },
@@ -45,17 +44,17 @@ const PRODUCT_MENU_CATEGORIES: MenuCategory[] = [
     icon: 'M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z',
   },
   {
-    slug: 'hr-hrpo-slit-coils',
-    displayName: 'HR / HRPO Slit Coils',
-    type: 'modal',
-    route: '',
+    slug: 'hr-hrpo-crca-slit-coils',
+    displayName: 'HR / HRPO & CRCA Slit Coils',
+    type: 'page',
+    route: '/products/hr-hrpo-crca-slit-coils',
     icon: 'M4 8V2h16v6M4 8v8M4 8H2m18 0v8m0-8h2M4 16h16M4 16H2m18 0h2M6 12h12',
   },
   {
     slug: 'hr-hrpo-crca-sheets-strips',
     displayName: 'HR / HRPO & CRCA Sheets & Strips',
-    type: 'modal',
-    route: '',
+    type: 'page',
+    route: '/products/hr-hrpo-crca-sheets-strips',
     icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM6 20V4h7v5h5v11H6z',
   },
 ];
@@ -64,7 +63,6 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const [modalSlug, setModalSlug] = useState<string | null>(null);
 
   return (
     <header className="w-full bg-white shadow-sm font-sans z-50 sticky top-0">
@@ -185,12 +183,7 @@ export default function Header() {
                       <CategoryCard
                         key={cat.slug}
                         category={cat}
-                        onClick={() => {
-                          setProductsOpen(false);
-                          if (cat.type === 'modal') {
-                            setModalSlug(cat.slug);
-                          }
-                        }}
+                        onClick={() => setProductsOpen(false)}
                       />
                     ))}
                   </div>
@@ -256,32 +249,16 @@ export default function Header() {
                             className="overflow-hidden"
                           >
                             <div className="py-3 space-y-1 pl-4">
-                              {PRODUCT_MENU_CATEGORIES.map((cat) => {
-                                if (cat.type === 'page') {
-                                  return (
-                                    <Link
-                                      key={cat.slug}
-                                      href={cat.route}
-                                      onClick={() => { setMenuOpen(false); setMobileProductsOpen(false); }}
-                                      className="block text-sm text-gray-300 hover:text-[#FF5B22] py-2.5 transition-colors"
-                                    >
-                                      {cat.displayName}
-                                    </Link>
-                                  );
-                                }
-                                return (
-                                  <button
-                                    key={cat.slug}
-                                    onClick={() => {
-                                      setModalSlug(cat.slug);
-                                      setMobileProductsOpen(false);
-                                    }}
-                                    className="block w-full text-left text-sm text-gray-300 hover:text-[#FF5B22] py-2.5 transition-colors cursor-pointer"
-                                  >
-                                    {cat.displayName}
-                                  </button>
-                                );
-                              })}
+                              {PRODUCT_MENU_CATEGORIES.map((cat) => (
+                                <Link
+                                  key={cat.slug}
+                                  href={cat.route}
+                                  onClick={() => { setMenuOpen(false); setMobileProductsOpen(false); }}
+                                  className="block text-sm text-gray-300 hover:text-[#FF5B22] py-2.5 transition-colors"
+                                >
+                                  {cat.displayName}
+                                </Link>
+                              ))}
                             </div>
                           </motion.div>
                         )}
@@ -322,61 +299,32 @@ export default function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Spec Sheets Modal */}
-      <SpecSheetsModal
-        slug={modalSlug || ''}
-        open={!!modalSlug}
-        onClose={() => setModalSlug(null)}
-      />
     </header>
   );
 }
 
 function CategoryCard({ category, onClick }: { category: MenuCategory; onClick: () => void }) {
-  const content = (
-    <div className="group relative bg-white border-2 border-gray-100 rounded-xl p-5 h-full flex flex-col items-center justify-center text-center hover:border-[#FF5B22] hover:shadow-lg hover:shadow-orange-100 transition-all duration-300 min-h-[120px] cursor-pointer">
-      {/* Icon */}
-      <svg
-        className="w-8 h-8 text-[#FF5B22] mb-3 group-hover:scale-110 transition-transform duration-300"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d={category.icon} />
-      </svg>
+  return (
+    <Link href={category.route} onClick={onClick}>
+      <div className="group relative bg-white border-2 border-gray-100 rounded-xl p-5 h-full flex flex-col items-center justify-center text-center hover:border-[#FF5B22] hover:shadow-lg hover:shadow-orange-100 transition-all duration-300 min-h-[120px] cursor-pointer">
+        <svg
+          className="w-8 h-8 text-[#FF5B22] mb-3 group-hover:scale-110 transition-transform duration-300"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={1.5}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d={category.icon} />
+        </svg>
 
-      {/* Title */}
-      <span className="text-xs lg:text-sm font-bold text-gray-800 group-hover:text-[#FF5B22] transition-colors leading-snug">
-        {category.displayName}
-      </span>
+        <span className="text-xs lg:text-sm font-bold text-gray-800 group-hover:text-[#FF5B22] transition-colors leading-snug">
+          {category.displayName}
+        </span>
 
-      {/* Arrow for page categories */}
-      {category.type === 'page' && (
         <span className="mt-2 text-[#FF5B22] opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs">
           Browse &rarr;
         </span>
-      )}
-      {category.type === 'modal' && (
-        <span className="mt-2 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs">
-          View Specs &rarr;
-        </span>
-      )}
-    </div>
-  );
-
-  if (category.type === 'page') {
-    return (
-      <Link href={category.route} onClick={onClick}>
-        {content}
-      </Link>
-    );
-  }
-
-  return (
-    <button onClick={onClick} className="w-full text-left">
-      {content}
-    </button>
+      </div>
+    </Link>
   );
 }

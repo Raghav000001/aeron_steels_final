@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ProductDetailClient from './ProductDetailClient';
 import CategoryClient from './CategoryClient';
+import SpecCategoryClient from './SpecCategoryClient';
 import { connectDB } from '@/lib/mongodb';
 import { Product } from '@/models/Product';
 import { getCategoryBySlug, getProductsBySlug } from '@/lib/item-data';
@@ -76,6 +77,9 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       notFound();
     }
     const products = getProductsBySlug(id);
+    if (category.slug === 'hr-hrpo-crca-slit-coils' || category.slug === 'hr-hrpo-crca-sheets-strips') {
+      return <SpecCategoryClient category={category} products={products} />;
+    }
     return <CategoryClient category={category} products={products} />;
   }
 

@@ -9,8 +9,8 @@
  *     Centre Bearing Brackets/  (display: "Center Bearing Packets")
  *     Mountings Plates/         (display: "Mounting Plates")
  *     Suspension Parts/         (display: "Suspension Plates")
- *     HR, HRPO & CRCA Slit Coils/     (modal — no page)
- *     HR, HRPO & CRCA Sheets & Strips/ (modal — no page)
+ *     HR, HRPO & CRCA Slit Coils/     (page — spec showcase)
+ *     HR, HRPO & CRCA Sheets & Strips/ (page — spec showcase)
  */
 
 import fs from 'fs';
@@ -33,8 +33,8 @@ export interface CategoryInfo {
 
 export const CATEGORIES: CategoryInfo[] = [
   {
-    slug: 'center-bearing-packets',
-    displayName: 'Center Bearing Packets',
+    slug: 'center-bearing-Brackets',
+    displayName: 'Center Bearing Brackets',
     dirName: 'Centre Bearing Brackets',
     hasPage: true,
   },
@@ -45,22 +45,22 @@ export const CATEGORIES: CategoryInfo[] = [
     hasPage: true,
   },
   {
-    slug: 'suspension-plates',
-    displayName: 'Suspension Plates',
+    slug: 'suspension-parts',
+    displayName: 'Suspension Parts',
     dirName: 'Suspension Parts',
     hasPage: true,
   },
   {
-    slug: 'hr-hrpo-slit-coils',
-    displayName: 'HR / HRPO Slit Coils',
+    slug: 'hr-hrpo-crca-slit-coils',
+    displayName: 'HR / HRPO & CRCA Slit Coils',
     dirName: 'HR, HRPO & CRCA Slit Coils',
-    hasPage: false,
+    hasPage: true,
   },
   {
     slug: 'hr-hrpo-crca-sheets-strips',
     displayName: 'HR / HRPO & CRCA Sheets & Strips',
     dirName: 'HR, HRPO & CRCA Sheets & Strips',
-    hasPage: false,
+    hasPage: true,
   },
 ];
 
