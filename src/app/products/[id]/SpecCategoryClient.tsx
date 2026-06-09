@@ -53,10 +53,10 @@ const SPEC_DATA: Record<string, SpecSheetData> = {
 };
 
 const LABEL_ICONS: Record<string, string> = {
-  Thickness: 'M12 20V10m0 0l-4 4m4-4l4 4',
-  Width: 'M8 7h8M8 7a4 4 0 118 0M8 7a4 4 0 11-8 0m16 0a4 4 0 11-8 0',
-  Length: 'M3 12h18M3 12a9 9 0 0118 0M3 12a9 9 0 0018 0',
-  Grade: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+  Thickness: 'M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4',
+  Width: 'M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4',
+  Length: 'M5 5h14v3H5zM7 5v3M10 5v3M13 5v3M16 5v3M19 5v3',
+  Grade: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
 };
 
 interface SpecCategoryClientProps {
