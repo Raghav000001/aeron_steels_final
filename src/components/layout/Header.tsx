@@ -23,10 +23,10 @@ interface MenuCategory {
 
 const PRODUCT_MENU_CATEGORIES: MenuCategory[] = [
   {
-    slug: 'center-bearing-packets',
+    slug: 'center-bearing-Brackets',
     displayName: 'Center Bearing Packets',
     type: 'page',
-    route: '/products/center-bearing-packets',
+    route: '/products/center-bearing-Brackets',
     icon: 'M3 12a9 9 0 1 1 18 0 9 9 0 0 1-18 0M8 12a4 4 0 1 1 8 0 4 4 0 0 1-8 0',
   },
   {
@@ -37,10 +37,10 @@ const PRODUCT_MENU_CATEGORIES: MenuCategory[] = [
     icon: 'M4 4h16v16H4zM6.5 6.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0M14.5 6.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0M6.5 14.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0M14.5 14.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0',
   },
   {
-    slug: 'suspension-plates',
+    slug: 'suspension-parts',
     displayName: 'Suspension Plates',
     type: 'page',
-    route: '/products/suspension-plates',
+    route: '/products/suspension-parts',
     icon: 'M4 18c4-12 12-12 16 0M12 9v7',
   },
   {

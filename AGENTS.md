@@ -45,19 +45,19 @@ The `[id]` segment handles TWO kinds of resources:
 
 Category slugs (from `item-data.ts`): `center-bearing-Brackets`, `mounting-plates`, `suspension-parts`, `hr-hrpo-crca-slit-coils`, `hr-hrpo-crca-sheets-strips`.
 
-### ⚠️ Slug Mismatch (Partial): Header vs Routing Layer
+### Products Dropdown Slugs
 
-**The Header's Products dropdown uses DIFFERENT slugs than `item-data.ts` for two categories:**
+Header `.tsx` routes and `item-data.ts` slugs are kept in sync. All 5 category dropdown entries map to valid routes:
 
-| `item-data.ts` slug | Header `route` |
+| Slug (both layers) | Route |
 |---|---|
-| `center-bearing-Brackets` | `/products/center-bearing-packets` |
+| `center-bearing-Brackets` | `/products/center-bearing-Brackets` |
 | `mounting-plates` | `/products/mounting-plates` |
-| `suspension-parts` | `/products/suspension-plates` |
+| `suspension-parts` | `/products/suspension-parts` |
 | `hr-hrpo-crca-slit-coils` | `/products/hr-hrpo-crca-slit-coils` |
 | `hr-hrpo-crca-sheets-strips` | `/products/hr-hrpo-crca-sheets-strips` |
 
-The first and third rows DO NOT MATCH. The Header links to routes that fail `getCategoryBySlug()` lookup and fall through to MongoDB ObjectId lookup (which also fails). **These Header dropdown links are broken for `center-bearing-packets` and `suspension-plates`.** Mounting plates and both HR/HRPO categories happen to match because both layers use the same slugs.
+If adding a new category: add to `CATEGORIES` in `item-data.ts` AND to `PRODUCT_MENU_CATEGORIES` in `Header.tsx` — both must use the same slug.
 
 ### Item Details Data Layer (`@/lib/item-data.ts`)
 
@@ -191,7 +191,6 @@ src/
 
 ## Known Issues (do NOT fix unless asked)
 
-- **Header slug mismatch (partial)**: `Header.tsx` links to `/products/center-bearing-packets` and `/products/suspension-plates`, but `item-data.ts` defines those slugs as `center-bearing-Brackets` and `suspension-parts`. Category pages for those product lines do NOT work from the Header dropdown. Mounting plates and both HR/HRPO categories happen to match because both layers use the same slugs.
 - `vortex.tsx` — 2 ESLint warnings (`react-hooks/exhaustive-deps`). Noisy but functional.
 - `<img>` tags throughout (not `next/image`) — intentional for simplicity with external Cloudinary URLs.
 - Footer service links route to `/contact-us` — intentional (all enquiries go to contact form).
