@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -55,7 +55,7 @@ const PRODUCT_MENU_CATEGORIES: MenuCategory[] = [
     displayName: 'HR / HRPO & CRCA Sheets & Strips',
     type: 'page',
     route: '/products/hr-hrpo-crca-sheets-strips',
-    icon: 'M7 5h12v4H7zM5 10h14v4H5zM7 15h12v4H7z',
+    icon: 'M7 5h12v4H7zM5 10h14v4H7z',
   },
 ];
 
@@ -63,19 +63,36 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const productsTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const openProducts = () => {
-    if (productsTimeout.current) clearTimeout(productsTimeout.current);
-    setProductsOpen(true);
-  };
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Ref wrapping the entire hover zone: trigger li + dropdown panel
+  const megaMenuZoneRef = useRef<HTMLDivElement>(null);
 
-  const closeProducts = () => {
-    if (productsTimeout.current) clearTimeout(productsTimeout.current);
-    productsTimeout.current = setTimeout(() => {
+  const cancelClose = useCallback(() => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  }, []);
+
+  const scheduleClose = useCallback(() => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => {
       setProductsOpen(false);
-    }, 100);
-  };
+    }, 150);
+  }, [cancelClose]);
+
+  // Click outside to close — replaces the backdrop div that was blocking mouse events
+  useEffect(() => {
+    if (!productsOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (megaMenuZoneRef.current && !megaMenuZoneRef.current.contains(e.target as Node)) {
+        setProductsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [productsOpen]);
 
   return (
     <header className="w-full bg-white shadow-sm font-sans z-50 sticky top-0">
@@ -129,7 +146,18 @@ export default function Header() {
       </div>
 
       {/* Navigation */}
-      <div className="w-full bg-[#1C1D1F] relative">
+      {/*
+        KEY FIX: megaMenuZoneRef wraps the entire nav bar div.
+        The dropdown is rendered INSIDE this same div via absolute positioning.
+        So trigger li AND dropdown panel are both children of the same DOM node.
+        onMouseLeave on this wrapper fires only when the cursor leaves BOTH areas.
+        No backdrop div — that was intercepting mouse events and breaking the hover.
+      */}
+      <div
+        ref={megaMenuZoneRef}
+        className="w-full bg-[#1C1D1F] relative"
+        onMouseLeave={scheduleClose}
+      >
         <div className="max-w-[1240px] mx-auto px-6 flex justify-between items-stretch">
           {/* Desktop nav */}
           <ul className="hidden md:flex flex-wrap items-center gap-4 lg:gap-6">
@@ -138,12 +166,12 @@ export default function Header() {
                 return (
                   <li
                     key={link.href}
-                    onMouseEnter={openProducts}
                     className="self-stretch"
+                    onMouseEnter={() => { cancelClose(); setProductsOpen(true); }}
                   >
                     <Link
                       href={link.href}
-                      className="text-white text-[0.6rem] lg:text-[0.7rem] font-bold uppercase py-3 lg:py-4 inline-block hover:text-[#FF5B22] transition-colors border-b-2 border-transparent hover:border-[#FF5B22]"
+                      className="text-white text-[0.6rem] lg:text-[0.7rem] font-bold uppercase py-3 lg:py-4 h-full flex items-center hover:text-[#FF5B22] transition-colors border-b-2 border-transparent hover:border-[#FF5B22]"
                     >
                       PRODUCTS
                     </Link>
@@ -151,7 +179,9 @@ export default function Header() {
                 );
               }
               return (
-                <li key={link.href} onMouseEnter={closeProducts}>
+                // Other nav items: just cancel any pending open, don't schedule close
+                // (the wrapper's onMouseLeave handles closing when cursor exits the whole zone)
+                <li key={link.href} onMouseEnter={cancelClose}>
                   <Link
                     href={link.href}
                     className="text-white text-[0.6rem] lg:text-[0.7rem] font-bold uppercase py-3 lg:py-4 inline-block hover:text-[#FF5B22] transition-colors border-b-2 border-transparent hover:border-[#FF5B22]"
@@ -163,47 +193,38 @@ export default function Header() {
             })}
           </ul>
 
-          <Link href="/contact-us" className="bg-[#FF5B22] hover:bg-[#e04b19] text-white px-8 md:px-6 lg:px-8 text-sm md:text-[0.75rem] lg:text-[0.7rem] font-bold uppercase transition-colors self-stretch flex items-center">
+          <Link
+            href="/contact-us"
+            className="bg-[#FF5B22] hover:bg-[#e04b19] text-white px-8 md:px-6 lg:px-8 text-sm md:text-[0.75rem] lg:text-[0.7rem] font-bold uppercase transition-colors self-stretch flex items-center"
+          >
             GET A QUOTE
           </Link>
         </div>
 
-        {/* Mega Menu — 5 Category Cards */}
+        {/* Mega Menu panel — sits inside the same wrapper div as the nav bar.
+            Mouse moving from nav bar into this panel never leaves the wrapper,
+            so onMouseLeave on the wrapper does NOT fire. No timer, no flicker. */}
         <AnimatePresence>
           {productsOpen && (
-            <>
-              {/* Backdrop */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15 }}
-                className="fixed inset-0 z-40 bg-black/20"
-                onClick={() => setProductsOpen(false)}
-              />
-              {/* Menu panel */}
-              <motion.div
-                initial={{ opacity: 0, y: -6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.15 }}
-                onMouseEnter={openProducts}
-                onMouseLeave={closeProducts}
-                className="absolute top-full left-0 right-0 z-50 bg-white shadow-2xl border-t border-gray-100"
-              >
-                <div className="max-w-[900px] mx-auto px-6 py-10">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                    {PRODUCT_MENU_CATEGORIES.map((cat) => (
-                      <CategoryCard
-                        key={cat.slug}
-                        category={cat}
-                        onClick={() => setProductsOpen(false)}
-                      />
-                    ))}
-                  </div>
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+              className="absolute top-full left-0 right-0 z-50 bg-white shadow-2xl border-t border-gray-100"
+            >
+              <div className="max-w-[900px] mx-auto px-6 py-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                  {PRODUCT_MENU_CATEGORIES.map((cat) => (
+                    <CategoryCard
+                      key={cat.slug}
+                      category={cat}
+                      onClick={() => setProductsOpen(false)}
+                    />
+                  ))}
                 </div>
-              </motion.div>
-            </>
+              </div>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>
@@ -330,11 +351,9 @@ function CategoryCard({ category, onClick }: { category: MenuCategory; onClick: 
         >
           <path strokeLinecap="round" strokeLinejoin="round" d={category.icon} />
         </svg>
-
         <span className="text-xs lg:text-sm font-bold text-gray-800 group-hover:text-[#FF5B22] transition-colors leading-snug">
           {category.displayName}
         </span>
-
         <span className="mt-2 text-[#FF5B22] opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs">
           Browse &rarr;
         </span>
