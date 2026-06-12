@@ -129,7 +129,7 @@ export default function Header() {
       </div>
 
       {/* Navigation */}
-      <div className="w-full bg-[#1C1D1F] relative">
+      <div className="w-full bg-[#1C1D1F] relative" onMouseLeave={closeProducts}>
         <div className="max-w-[1240px] mx-auto px-6 flex justify-between items-stretch">
           {/* Desktop nav */}
           <ul className="hidden md:flex flex-wrap items-center gap-4 lg:gap-6">
@@ -139,7 +139,7 @@ export default function Header() {
                   <li
                     key={link.href}
                     onMouseEnter={openProducts}
-                    onMouseLeave={closeProducts}
+                    className="self-stretch"
                   >
                     <Link
                       href={link.href}
@@ -151,7 +151,7 @@ export default function Header() {
                 );
               }
               return (
-                <li key={link.href}>
+                <li key={link.href} onMouseEnter={closeProducts}>
                   <Link
                     href={link.href}
                     className="text-white text-[0.6rem] lg:text-[0.7rem] font-bold uppercase py-3 lg:py-4 inline-block hover:text-[#FF5B22] transition-colors border-b-2 border-transparent hover:border-[#FF5B22]"
