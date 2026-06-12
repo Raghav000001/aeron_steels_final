@@ -1,8 +1,39 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+
+function AnimatedCounter({ from, to, suffix }: { from: number; to: number; suffix?: string }) {
+  const [count, setCount] = useState(from);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-50px" });
+
+  useEffect(() => {
+    if (isInView) {
+      let current = from;
+      const target = to;
+      const duration = 2000;
+      const stepTime = 30;
+      const steps = duration / stepTime;
+      const increment = (target - current) / steps;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          setCount(target);
+          clearInterval(timer);
+        } else {
+          setCount(Math.floor(current));
+        }
+      }, stepTime);
+
+      return () => clearInterval(timer);
+    }
+  }, [isInView, from, to]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 export default function AboutSection() {
   const router = useRouter();
@@ -67,6 +98,33 @@ export default function AboutSection() {
               technical know-how with robust production capabilities to timely deliver dependable 
               solutions tailored to industry demands.
             </motion.p>
+
+            <motion.div
+              className="grid grid-cols-3 gap-6 mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.5, delay: 0.35 }}
+            >
+              <div className="text-center">
+                <div className="text-2xl lg:text-3xl font-bold text-[#FF5B22]">
+                  <AnimatedCounter from={0} to={60} suffix="+" />
+                </div>
+                <div className="text-xs lg:text-sm text-gray-500 mt-1">Trusted Buyers</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl lg:text-3xl font-bold text-[#FF5B22]">
+                  <AnimatedCounter from={0} to={50} suffix="+" />
+                </div>
+                <div className="text-xs lg:text-sm text-gray-500 mt-1">Employees</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl lg:text-3xl font-bold text-[#FF5B22]">
+                  <AnimatedCounter from={0} to={25} suffix="+" />
+                </div>
+                <div className="text-xs lg:text-sm text-gray-500 mt-1">Years of Experience</div>
+              </div>
+            </motion.div>
 
             <motion.button 
               className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 rounded-full uppercase text-sm transition-colors duration-300 cursor-pointer"
