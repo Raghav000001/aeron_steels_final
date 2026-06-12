@@ -74,7 +74,7 @@ export default function Header() {
     if (productsTimeout.current) clearTimeout(productsTimeout.current);
     productsTimeout.current = setTimeout(() => {
       setProductsOpen(false);
-    }, 200);
+    }, 100);
   };
 
   return (
@@ -129,7 +129,7 @@ export default function Header() {
       </div>
 
       {/* Navigation */}
-      <div className="w-full bg-[#1C1D1F] relative" onMouseLeave={closeProducts}>
+      <div className="w-full bg-[#1C1D1F] relative">
         <div className="max-w-[1240px] mx-auto px-6 flex justify-between items-stretch">
           {/* Desktop nav */}
           <ul className="hidden md:flex flex-wrap items-center gap-4 lg:gap-6">
