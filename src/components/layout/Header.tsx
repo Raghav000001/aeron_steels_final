@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -63,6 +63,19 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const productsTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openProducts = () => {
+    if (productsTimeout.current) clearTimeout(productsTimeout.current);
+    setProductsOpen(true);
+  };
+
+  const closeProducts = () => {
+    if (productsTimeout.current) clearTimeout(productsTimeout.current);
+    productsTimeout.current = setTimeout(() => {
+      setProductsOpen(false);
+    }, 200);
+  };
 
   return (
     <header className="w-full bg-white shadow-sm font-sans z-50 sticky top-0">
@@ -125,7 +138,8 @@ export default function Header() {
                 return (
                   <li
                     key={link.href}
-                    onMouseEnter={() => setProductsOpen(true)}
+                    onMouseEnter={openProducts}
+                    onMouseLeave={closeProducts}
                   >
                     <Link
                       href={link.href}
@@ -173,8 +187,8 @@ export default function Header() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.15 }}
-                onMouseEnter={() => setProductsOpen(true)}
-                onMouseLeave={() => setProductsOpen(false)}
+                onMouseEnter={openProducts}
+                onMouseLeave={closeProducts}
                 className="absolute top-full left-0 right-0 z-50 bg-white shadow-2xl border-t border-gray-100"
               >
                 <div className="max-w-[900px] mx-auto px-6 py-10">
