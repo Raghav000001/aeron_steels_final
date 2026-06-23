@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PageBanner from '@/components/ui/PageBanner';
 
 const trustIndicators = [
-  { label: 'Certification Body', value: 'Bureau Veritas / TÜV' },
+  { label: 'Certification Body', value: 'EAS (Member of IAF)' },
   { label: 'Valid Until', value: 'Annual Surveillance' },
   { label: 'Scope', value: 'Steel Manufacturing & Fabrication' },
   { label: 'Standard', value: 'ISO 9001:2015' },

@@ -39,8 +39,8 @@ export const CATEGORIES: CategoryInfo[] = [
     hasPage: true,
   },
   {
-    slug: 'mounting-plates',
-    displayName: 'Mounting Plates',
+    slug: 'mounting-parts',
+    displayName: 'Mounting Parts',
     dirName: 'Mountings Plates',
     hasPage: true,
   },

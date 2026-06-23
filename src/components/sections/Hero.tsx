@@ -6,44 +6,63 @@ import { useRouter } from 'next/navigation';
 
 export default function HeroSection() {
   const router = useRouter();
+
+  const fadeInUp = (delay: number) => ({
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, delay, ease: 'easeOut' as const },
+  });
+
   return (
-    <section className="relative w-full h-[600px] overflow-hidden">
-      {/* Background Image */}
+    <section className="relative w-full h-screen overflow-hidden">
       <motion.div
-        initial={{ opacity: 0, scale: 1.05 }}
+        initial={{ opacity: 0, scale: 1.08 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
+        transition={{ duration: 1, ease: 'easeOut' }}
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: "url('/photos/home/big_circle.jpg')" }}
       />
 
-      <div className="absolute inset-0 bg-black/60 z-10"></div>
-      
-      <div className="relative z-20 flex items-center justify-center w-full h-full px-4 text-center">
-        <motion.div
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-          className="max-w-4xl mx-auto"
-        >
-          <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-wider mb-4 leading-tight text-white drop-shadow-lg">
-            Your Steel, Your Way
-          </h1>
-          <p className="text-gray-300 text-lg md:text-xl mb-3 max-w-2xl mx-auto font-light">
-            Precision in every process
-          </p>
-          <p className="text-[#FF5B22] text-sm md:text-base mb-8 max-w-2xl mx-auto font-medium uppercase tracking-widest">
-            Transforming Steel into Solutions
-          </p>
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => router.push('/contact-us')}
-            className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3 px-8 uppercase text-sm transition-colors duration-300 shadow-xl cursor-pointer"
-          >
-            Contact Us
-          </motion.button>
-        </motion.div>
+      <div className="absolute inset-0 bg-black/45" />
+
+      <div className="relative z-10 flex items-center w-full h-full">
+        <div className="w-full max-w-[1240px] mx-auto px-6 pt-32 md:pt-36 lg:pt-40">
+          <motion.div className="max-w-2xl" {...fadeInUp(0.2)}>
+            <motion.span
+              className="inline-block text-[#FF5B22] text-sm md:text-base font-bold uppercase tracking-[0.25em] mb-5"
+              {...fadeInUp(0.15)}
+            >
+              Transforming Steel into Solutions
+            </motion.span>
+
+            <motion.h1
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[1.05] text-white mb-6 drop-shadow-lg"
+              {...fadeInUp(0.25)}
+            >
+              Your Steel,
+              <br />
+              <span className="text-[#FF5B22]">Your Way</span>
+            </motion.h1>
+
+            <motion.p
+              className="text-gray-300 text-lg md:text-xl lg:text-2xl mb-10 font-light leading-relaxed max-w-xl"
+              {...fadeInUp(0.35)}
+            >
+              Precision in every process
+            </motion.p>
+
+            <motion.div {...fadeInUp(0.45)}>
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => router.push('/contact-us')}
+                className="bg-[#FF5B22] hover:bg-[#e04b19] text-white font-bold py-3.5 px-9 uppercase text-sm tracking-wider transition-all duration-200 shadow-xl shadow-orange-900/30 cursor-pointer"
+              >
+                Contact Us
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

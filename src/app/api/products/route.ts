@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     console.error('GET /api/products error:', error);
     return errorResponse('Failed to fetch products', 500);
   }
-}
+} 
 
 export async function POST(request: Request) {
   const authError = requireAdmin(request);

@@ -43,7 +43,7 @@ The `[id]` segment handles TWO kinds of resources:
 1. **MongoDB ObjectId** → fetches product from `Product` model, renders `ProductDetailClient` (client-side fetch from `/api/products/[id]`)
 2. **Category slug** → reads from local filesystem via `@/lib/item-data`, renders `CategoryClient` (search/sort/pagination/lightbox) or `SpecCategoryClient` (image showcase + spec table for HR/HRPO categories)
 
-Category slugs (from `item-data.ts`): `center-bearing-Brackets`, `mounting-plates`, `suspension-parts`, `hr-hrpo-crca-slit-coils`, `hr-hrpo-crca-sheets-strips`.
+Category slugs (from `item-data.ts`): `center-bearing-Brackets`, `mounting-parts`, `suspension-parts`, `hr-hrpo-crca-slit-coils`, `hr-hrpo-crca-sheets-strips`.
 
 ### Products Dropdown Slugs
 
@@ -52,7 +52,7 @@ Header `.tsx` routes and `item-data.ts` slugs are kept in sync. All 5 category d
 | Slug (both layers) | Route |
 |---|---|
 | `center-bearing-Brackets` | `/products/center-bearing-Brackets` |
-| `mounting-plates` | `/products/mounting-plates` |
+| `mounting-parts` | `/products/mounting-parts` |
 | `suspension-parts` | `/products/suspension-parts` |
 | `hr-hrpo-crca-slit-coils` | `/products/hr-hrpo-crca-slit-coils` |
 | `hr-hrpo-crca-sheets-strips` | `/products/hr-hrpo-crca-sheets-strips` |
