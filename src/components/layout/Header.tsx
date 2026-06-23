@@ -156,7 +156,7 @@ export default function Header() {
             : 'bg-transparent'
         }`}
       >
-        <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between h-[72px] md:h-20 lg:h-[88px]">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between h-[72px] md:h-20 lg:h-[100px]">
           <Link href="/" className="flex items-center gap-2 md:gap-6 lg:gap-7 flex-shrink-0">
             <img
               src="/images/logo-icon.png"
@@ -166,7 +166,7 @@ export default function Header() {
             <img
               src="/images/logo.png"
               alt="Aeron Steels"
-              className="hidden md:block h-[45px] lg:h-[52px] w-auto object-contain brightness-0 invert"
+              className="hidden md:block h-[45px] lg:h-[90px] w-auto object-contain brightness-0 invert"
             />
             <div className="block md:hidden">
               <h1 className="text-lg font-black uppercase tracking-wide text-white leading-tight whitespace-nowrap">
