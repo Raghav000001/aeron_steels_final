@@ -4,6 +4,14 @@
  * Reads product data from the `public/Item Details/` directory structure.
  * Server-only — uses `fs` to discover files at runtime.
  *
+ * IMPORTANT: this file imports `fs`/`path` (Node-only). Never import it
+ * from a 'use client' component, even just to grab `encodeImagePath` —
+ * the whole module (including the fs import) gets pulled into the
+ * browser bundle and the build fails with "Module not found: Can't
+ * resolve 'fs'". Client components needing `encodeImagePath` should
+ * import it from `./image-path` instead (re-exported below for
+ * server-side convenience only).
+ *
  * Directory layout:
  *   public/Item Details/
  *     Centre Bearing Brackets/  (display: "Center Bearing Packets")
@@ -15,6 +23,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { encodeImagePath } from './image-path';
 
 const ITEM_DETAILS_DIR = path.join(process.cwd(), 'public', 'Item Details');
 
@@ -84,6 +93,7 @@ export function getPageCategories(): CategoryInfo[] {
 
 export interface ProductItem {
   name: string;
+  /** Raw filesystem-style path, e.g. "/Item Details/Foo/Bar (L+R).png" — NOT URL-encoded yet. */
   imagePath: string;
   category: string;
   /** File modification time for date-based sorting */
@@ -135,9 +145,16 @@ export function getProductsBySlug(slug: string): ProductItem[] {
   return getProductsByCategory(cat.dirName);
 }
 
-/** Public URL path for an item-detail image (used in <img> src) */
+/**
+ * Re-exported for server-side convenience (API routes, server components).
+ * Client components must import this from './image-path' directly instead —
+ * see the file-level warning above for why.
+ */
+export { encodeImagePath };
+
+/** Public URL path for an item-detail image (used in <img>/<Image> src) */
 export function imageUrl(product: ProductItem): string {
-  return encodeURI(product.imagePath);
+  return encodeImagePath(product.imagePath);
 }
 
 /* ── Summary for API ───────────────────────────────────── */
