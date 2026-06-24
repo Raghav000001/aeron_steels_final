@@ -195,12 +195,12 @@ export default function Header() {
         <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between h-16 md:h-[72px] lg:h-20">
           <Link href="/" className="flex items-center gap-2 md:gap-3 flex-shrink-0 min-w-0">
             <Image
-              src="/images/logo-icon.png"
+              src="/images/logo.png"
               alt="Aeron Steels"
               width={120}
               height={120}
               priority
-              className="block h-11 md:h-12 lg:h-14 w-auto object-contain brightness-0 invert"
+              className="block h-14 md:h-16 lg:h-20 w-auto object-contain brightness-0 invert"
             />
             <div className="min-w-0">
               <h1 className="text-base sm:text-lg lg:text-2xl font-black uppercase tracking-wide text-white leading-tight whitespace-nowrap">
