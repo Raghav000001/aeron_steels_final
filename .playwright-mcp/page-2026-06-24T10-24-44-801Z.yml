@@ -1,0 +1,231 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "aeronsteels28@gmail.com" [ref=e5] [cursor=pointer]:
+        - /url: mailto:aeronsteels28@gmail.com
+        - img [ref=e6]
+        - generic [ref=e8]: aeronsteels28@gmail.com
+      - link "+91 8307028125" [ref=e9] [cursor=pointer]:
+        - /url: tel:+918307028125
+        - img [ref=e10]
+        - text: +91 8307028125
+    - generic [ref=e13]:
+      - link "Aeron Steels AERON STEELS Private Limited" [ref=e14] [cursor=pointer]:
+        - /url: /
+        - img "Aeron Steels" [ref=e15]
+        - generic [ref=e16]:
+          - heading "AERON STEELS" [level=1] [ref=e17]
+          - generic [ref=e18]: Private Limited
+      - list [ref=e20]:
+        - listitem [ref=e21]:
+          - link "HOME" [ref=e22] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e23]:
+          - link "ABOUT US" [ref=e24] [cursor=pointer]:
+            - /url: /about-us
+        - listitem [ref=e25]:
+          - link "INFRASTRUCTURE" [ref=e26] [cursor=pointer]:
+            - /url: /infrastructure
+        - listitem [ref=e27]:
+          - link "CERTIFICATIONS" [ref=e28] [cursor=pointer]:
+            - /url: /certifications
+        - listitem [ref=e29]:
+          - link "PRODUCTS" [ref=e30] [cursor=pointer]:
+            - /url: /products
+            - text: PRODUCTS
+        - listitem [ref=e32]:
+          - link "CONTACT US" [ref=e33] [cursor=pointer]:
+            - /url: /contact-us
+      - link "GET A QUOTE" [ref=e34] [cursor=pointer]:
+        - /url: /contact-us
+  - main [ref=e35]:
+    - generic [ref=e37]:
+      - link "Home" [ref=e38] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e39]: /
+      - link "Products" [ref=e40] [cursor=pointer]:
+        - /url: /products
+      - generic [ref=e41]: /
+      - generic [ref=e42]: Center Bearing Brackets
+    - generic [ref=e44]:
+      - heading "Center Bearing Brackets" [level=1] [ref=e45]
+      - paragraph [ref=e46]: Browse our complete range of center bearing brackets. High-quality precision components manufactured by Aeron Steels Private Limited.
+    - generic [ref=e49]:
+      - link "Center Bearing Brackets" [ref=e50] [cursor=pointer]:
+        - /url: /products/center-bearing-Brackets
+      - link "Mounting Parts" [ref=e51] [cursor=pointer]:
+        - /url: /products/mounting-parts
+      - link "Suspension Parts" [ref=e52] [cursor=pointer]:
+        - /url: /products/suspension-parts
+      - link "HR / HRPO & CRCA Slit Coils" [ref=e53] [cursor=pointer]:
+        - /url: /products/hr-hrpo-crca-slit-coils
+      - link "HR / HRPO & CRCA Sheets & Strips" [ref=e54] [cursor=pointer]:
+        - /url: /products/hr-hrpo-crca-sheets-strips
+    - generic [ref=e57]:
+      - generic [ref=e58]:
+        - img
+        - textbox "Search products..." [ref=e59]
+      - generic [ref=e60]:
+        - generic [ref=e61]: 9 products
+        - button "A-Z" [ref=e63] [cursor=pointer]:
+          - img [ref=e64]
+          - generic [ref=e66]: A-Z
+          - img [ref=e67]
+    - generic [ref=e70]:
+      - generic [ref=e71]:
+        - generic [ref=e73]:
+          - img "88511" [ref=e75]
+          - generic [ref=e76]:
+            - heading "88511" [level=3] [ref=e77]
+            - generic [ref=e78]:
+              - button "View Details" [ref=e79] [cursor=pointer]
+              - link "Request Quote" [ref=e80] [cursor=pointer]:
+                - /url: /contact-us?product=88511
+        - generic [ref=e82]:
+          - img "88512" [ref=e84]
+          - generic [ref=e85]:
+            - heading "88512" [level=3] [ref=e86]
+            - generic [ref=e87]:
+              - button "View Details" [ref=e88] [cursor=pointer]
+              - link "Request Quote" [ref=e89] [cursor=pointer]:
+                - /url: /contact-us?product=88512
+        - generic [ref=e91]:
+          - img "AMW" [ref=e93]
+          - generic [ref=e94]:
+            - heading "AMW" [level=3] [ref=e95]
+            - generic [ref=e96]:
+              - button "View Details" [ref=e97] [cursor=pointer]
+              - link "Request Quote" [ref=e98] [cursor=pointer]:
+                - /url: /contact-us?product=AMW
+        - generic [ref=e100]:
+          - img "Eicher Canter 6213" [ref=e102]
+          - generic [ref=e103]:
+            - heading "Eicher Canter 6213" [level=3] [ref=e104]
+            - generic [ref=e105]:
+              - button "View Details" [ref=e106] [cursor=pointer]
+              - link "Request Quote" [ref=e107] [cursor=pointer]:
+                - /url: /contact-us?product=Eicher%20Canter%206213
+        - generic [ref=e109]:
+          - img "Eicher Jumbo" [ref=e111]
+          - generic [ref=e112]:
+            - heading "Eicher Jumbo" [level=3] [ref=e113]
+            - generic [ref=e114]:
+              - button "View Details" [ref=e115] [cursor=pointer]
+              - link "Request Quote" [ref=e116] [cursor=pointer]:
+                - /url: /contact-us?product=Eicher%20Jumbo
+        - generic [ref=e118]:
+          - img "Mahindra Xylo" [ref=e120]
+          - generic [ref=e121]:
+            - heading "Mahindra Xylo" [level=3] [ref=e122]
+            - generic [ref=e123]:
+              - button "View Details" [ref=e124] [cursor=pointer]
+              - link "Request Quote" [ref=e125] [cursor=pointer]:
+                - /url: /contact-us?product=Mahindra%20Xylo
+        - generic [ref=e127]:
+          - img "MSL Scorpio" [ref=e129]
+          - generic [ref=e130]:
+            - heading "MSL Scorpio" [level=3] [ref=e131]
+            - generic [ref=e132]:
+              - button "View Details" [ref=e133] [cursor=pointer]
+              - link "Request Quote" [ref=e134] [cursor=pointer]:
+                - /url: /contact-us?product=MSL%20Scorpio
+        - generic [ref=e136]:
+          - img "Tata 1616" [ref=e138]
+          - generic [ref=e139]:
+            - heading "Tata 1616" [level=3] [ref=e140]
+            - generic [ref=e141]:
+              - button "View Details" [ref=e142] [cursor=pointer]
+              - link "Request Quote" [ref=e143] [cursor=pointer]:
+                - /url: /contact-us?product=Tata%201616
+      - generic [ref=e144]:
+        - button "← Prev" [disabled] [ref=e145]
+        - button "1" [ref=e146] [cursor=pointer]
+        - button "2" [ref=e147] [cursor=pointer]
+        - button "Next →" [ref=e148] [cursor=pointer]
+  - contentinfo [ref=e149]:
+    - generic [ref=e151]:
+      - generic [ref=e152]:
+        - heading "AERON STEELS" [level=1] [ref=e153]
+        - paragraph [ref=e154]: At ASPL, we specialize in high-quality steel products, committed to excellence and innovation in manufacturing. Our dedication ensures we meet the diverse needs of our clients across various industries.
+        - link "KNOW MORE ⊕" [ref=e155] [cursor=pointer]:
+          - /url: /about-us
+      - generic [ref=e156]:
+        - heading "Quick links" [level=4] [ref=e157]
+        - list [ref=e158]:
+          - listitem [ref=e159]:
+            - link "▸ About Us" [ref=e160] [cursor=pointer]:
+              - /url: /about-us
+              - generic [ref=e161]: ▸
+              - text: About Us
+          - listitem [ref=e162]:
+            - link "▸ Products" [ref=e163] [cursor=pointer]:
+              - /url: /products
+              - generic [ref=e164]: ▸
+              - text: Products
+          - listitem [ref=e165]:
+            - link "▸ Infrastructure" [ref=e166] [cursor=pointer]:
+              - /url: /infrastructure
+              - generic [ref=e167]: ▸
+              - text: Infrastructure
+          - listitem [ref=e168]:
+            - link "▸ Certifications" [ref=e169] [cursor=pointer]:
+              - /url: /certifications
+              - generic [ref=e170]: ▸
+              - text: Certifications
+          - listitem [ref=e171]:
+            - link "▸ Contact Us" [ref=e172] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e173]: ▸
+              - text: Contact Us
+      - generic [ref=e174]:
+        - heading "Our Services" [level=4] [ref=e175]
+        - list [ref=e176]:
+          - listitem [ref=e177]:
+            - link "▸ Custom Sheet Metal Components" [ref=e178] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e179]: ▸
+              - text: Custom Sheet Metal Components
+          - listitem [ref=e180]:
+            - link "▸ Slitted Coils" [ref=e181] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e182]: ▸
+              - text: Slitted Coils
+          - listitem [ref=e183]:
+            - link "▸ Cut-to-length Sheets & Strips" [ref=e184] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e185]: ▸
+              - text: Cut-to-length Sheets & Strips
+          - listitem [ref=e186]:
+            - link "▸ Custom Bar Components" [ref=e187] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e188]: ▸
+              - text: Custom Bar Components
+      - generic [ref=e189]:
+        - heading "Contact Us" [level=4] [ref=e190]
+        - generic [ref=e191]:
+          - generic [ref=e192]:
+            - generic [ref=e193]: ⌂
+            - paragraph [ref=e194]:
+              - text: Khewat no 1306, Village Baniyani,
+              - text: Bhiwani Road, Rohtak, Haryana 124001
+          - generic [ref=e195]:
+            - generic [ref=e196]: 📱
+            - strong [ref=e197]: +91 8307028125
+          - generic [ref=e198]:
+            - generic [ref=e199]: ✉
+            - paragraph [ref=e200]: aeronsteels28@gmail.com
+        - generic [ref=e201]:
+          - link "Facebook" [ref=e202] [cursor=pointer]:
+            - /url: https://facebook.com/aeronsteels
+            - text: f
+          - link "Twitter" [ref=e203] [cursor=pointer]:
+            - /url: https://twitter.com/aeronsteels
+            - text: t
+          - link "LinkedIn" [ref=e204] [cursor=pointer]:
+            - /url: https://linkedin.com/company/aeronsteels
+            - text: in
+          - link "YouTube" [ref=e205] [cursor=pointer]:
+            - /url: https://youtube.com/@aeronsteels
+            - text: yt
+  - button "Open Next.js Dev Tools" [ref=e211] [cursor=pointer]:
+    - img [ref=e212]

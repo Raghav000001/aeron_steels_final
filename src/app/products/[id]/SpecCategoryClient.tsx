@@ -62,35 +62,58 @@ const LABEL_ICONS: Record<string, string> = {
 interface SpecCategoryClientProps {
   category: CategoryInfo;
   products: ProductItem[];
+  categories?: CategoryInfo[];
 }
 
-export default function SpecCategoryClient({ category, products }: SpecCategoryClientProps) {
+export default function SpecCategoryClient({ category, products, categories }: SpecCategoryClientProps) {
+  if (!category) return null;
+
   const hero = HERO_DATA[category.slug];
   const spec = SPEC_DATA[category.slug];
 
-  const mainImage = products[0];
-  const gridImages = products.slice(1, 3);
+  const mainImage = products?.[0];
+  const gridImages = products?.slice(1, 3) ?? [];
+  const hasAnyImages = Boolean(mainImage);
 
   return (
     <main className="min-h-screen bg-white">
+      {/* Breadcrumb */}
       <div className="w-full border-b border-gray-100 bg-gray-50">
-        <div className="max-w-[1240px] mx-auto px-6 py-4 flex items-center gap-2 text-sm">
-          <Link href="/" className="text-gray-400 hover:text-[#FF5B22] transition-colors">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-2 text-xs sm:text-sm overflow-x-auto whitespace-nowrap">
+          <Link href="/" className="text-gray-400 hover:text-[#FF5B22] transition-colors flex-shrink-0">
             Home
           </Link>
-          <span className="text-gray-300">/</span>
-          <Link href="/products" className="text-gray-400 hover:text-[#FF5B22] transition-colors">
+          <span className="text-gray-300 flex-shrink-0">/</span>
+          <Link href="/products" className="text-gray-400 hover:text-[#FF5B22] transition-colors flex-shrink-0">
             Products
           </Link>
-          <span className="text-gray-300">/</span>
-          <span className="text-gray-800 font-medium">{category.displayName}</span>
+          <span className="text-gray-300 flex-shrink-0">/</span>
+          <span className="text-gray-800 font-medium flex-shrink-0">{category.displayName}</span>
         </div>
       </div>
 
-      <section className="relative bg-[#1C1D1F] py-16 md:py-20">
-        <div className="max-w-[1240px] mx-auto px-6">
+      {/* Hero */}
+      <section className="relative bg-[#1C1D1F] py-14 md:py-20 overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(135deg, #fff 0px, #fff 1px, transparent 1px, transparent 40px)',
+          }}
+        />
+        <div className="absolute -right-24 -top-24 w-72 h-72 rounded-full bg-[#FF5B22]/10 blur-3xl pointer-events-none" />
+
+        <div className="relative max-w-[1240px] mx-auto px-4 sm:px-6">
+          <motion.span
+            className="inline-block text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#FF5B22] mb-3"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            Product Category
+          </motion.span>
           <motion.h1
-            className="text-3xl md:text-5xl font-bold text-white mb-4"
+            className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -110,39 +133,84 @@ export default function SpecCategoryClient({ category, products }: SpecCategoryC
         </div>
       </section>
 
-      <section className="py-12 md:py-16">
-        <div className="max-w-[1240px] mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="lg:w-[60%]">
-              <motion.div
-                className="relative w-full aspect-[4/3] bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                {mainImage ? (
+      {/* Category Navigation Cards — horizontal scroll on mobile instead of wrap */}
+      {categories && categories.length > 0 && (
+        <section className="py-5 md:py-6 border-b border-gray-100 bg-white">
+          <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
+            <div className="flex gap-2.5 md:gap-3 overflow-x-auto pb-1 -mb-1 scrollbar-hide md:flex-wrap">
+              {categories.map((cat) => {
+                const isActive = cat.slug === category.slug;
+                return (
+                  <Link
+                    key={cat.slug}
+                    href={`/products/${cat.slug}`}
+                    className={`flex-shrink-0 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all duration-200 whitespace-nowrap ${
+                      isActive
+                        ? 'bg-[#FF5B22] text-white shadow-sm shadow-orange-200'
+                        : 'bg-gray-100 text-gray-700 hover:bg-[#FF5B22]/10 hover:text-[#FF5B22] border border-transparent hover:border-[#FF5B22]/20'
+                    }`}
+                  >
+                    {cat.displayName}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Image gallery */}
+      <section className="py-10 md:py-16">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
+          {!hasAnyImages ? (
+            <div className="w-full aspect-[16/9] md:aspect-[21/9] bg-gray-50 border border-gray-100 rounded-xl flex flex-col items-center justify-center text-gray-400 gap-2">
+              <svg className="w-10 h-10 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M14 8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span className="text-sm">No images available for this category yet</span>
+            </div>
+          ) : gridImages.length === 0 ? (
+            // Only one image total — let it take full width, larger
+            <motion.div
+              className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Image
+                src={encodeURI(mainImage!.imagePath)}
+                alt={mainImage!.name}
+                fill
+                className="object-contain p-6 md:p-10 transition-transform duration-500 group-hover:scale-105"
+                sizes="100vw"
+                priority
+              />
+            </motion.div>
+          ) : (
+            <div className="flex flex-col lg:flex-row gap-4">
+              <div className="lg:w-[60%]">
+                <motion.div
+                  className="relative w-full aspect-[4/3] bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm group"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
                   <Image
-                    src={encodeURI(mainImage.imagePath)}
-                    alt={mainImage.name}
+                    src={encodeURI(mainImage!.imagePath)}
+                    alt={mainImage!.name}
                     fill
-                    className="object-contain p-4 md:p-8"
+                    className="object-contain p-4 md:p-8 transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 1024px) 100vw, 60vw"
                     priority
                   />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gray-50 text-gray-400 text-sm">
-                    No image available
-                  </div>
-                )}
-              </motion.div>
-            </div>
+                </motion.div>
+              </div>
 
-            <div className="lg:w-[40%] flex flex-col gap-4">
-              {gridImages.length > 0 ? (
-                gridImages.map((img, i) => (
+              <div className="lg:w-[40%] grid grid-cols-2 lg:grid-cols-1 gap-4">
+                {gridImages.map((img, i) => (
                   <motion.div
                     key={img.name}
-                    className="relative w-full flex-1 min-h-[160px] md:min-h-[200px] bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm"
+                    className="relative w-full aspect-square lg:aspect-auto lg:flex-1 lg:min-h-[200px] bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm group"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
@@ -151,33 +219,21 @@ export default function SpecCategoryClient({ category, products }: SpecCategoryC
                       src={encodeURI(img.imagePath)}
                       alt={img.name}
                       fill
-                      className="object-contain p-4 md:p-6"
-                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      className="object-contain p-4 md:p-6 transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 1024px) 50vw, 40vw"
                     />
                   </motion.div>
-                ))
-              ) : (
-                <>
-                  <div className="relative w-full flex-1 min-h-[160px] md:min-h-[200px] bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-sm">
-                    No additional images
-                  </div>
-                  <div className="relative w-full flex-1 min-h-[160px] md:min-h-[200px] bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-sm">
-                    No additional images
-                  </div>
-                </>
-              )}
-
-              {gridImages.length === 1 && (
-                <div className="relative w-full flex-1 min-h-[160px] md:min-h-[200px]" />
-              )}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
+      {/* Specifications */}
       {spec && (
         <section className="py-12 md:py-16 bg-gray-50">
-          <div className="max-w-[1240px] mx-auto px-6">
+          <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
             <motion.div
               className="text-center mb-10"
               initial={{ opacity: 0, y: 20 }}
@@ -191,7 +247,7 @@ export default function SpecCategoryClient({ category, products }: SpecCategoryC
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-2">
                 Specifications
               </h2>
-              <p className="text-gray-500 text-sm mt-2 max-w-xl mx-auto">
+              <p className="text-gray-500 text-sm mt-2 max-w-xl mx-auto px-4">
                 Detailed specifications for {category.displayName.toLowerCase()}
               </p>
             </motion.div>
@@ -203,8 +259,9 @@ export default function SpecCategoryClient({ category, products }: SpecCategoryC
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
+              {/* Desktop header row */}
               <div className="hidden md:grid md:grid-cols-[1fr_1fr_1fr] gap-4 mb-4">
-                <div className="text-[0.65rem] font-bold uppercase tracking-wider text-gray-400 pl-3">
+                <div className="text-[0.65rem] font-bold uppercase tracking-wider text-gray-400 pl-3 flex items-center">
                   Specification
                 </div>
                 <div className="text-[0.65rem] font-bold uppercase tracking-wider text-center text-white bg-[#FF5B22] rounded-lg px-4 py-2.5 shadow-sm shadow-orange-200">
@@ -215,57 +272,76 @@ export default function SpecCategoryClient({ category, products }: SpecCategoryC
                 </div>
               </div>
 
+              {/* Mobile column legend (shown once, not repeated per row) */}
+              <div className="md:hidden grid grid-cols-2 gap-2 mb-3 px-1">
+                <div className="text-center text-[0.65rem] font-bold uppercase tracking-wider text-white bg-[#FF5B22] rounded-lg py-2 shadow-sm shadow-orange-200">
+                  {spec.columns[0]}
+                </div>
+                <div className="text-center text-[0.65rem] font-bold uppercase tracking-wider text-white bg-gray-800 rounded-lg py-2 shadow-sm">
+                  {spec.columns[1]}
+                </div>
+              </div>
+
               <div className="space-y-2.5">
-                {spec.rows.map((row, i) => (
-                  <motion.div
-                    key={row.label}
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.35, delay: 0.06 * i, ease: 'easeOut' }}
-                    className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] gap-2 md:gap-4 p-3.5 md:p-4 rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 transition-all duration-200"
-                  >
-                    <div className="flex items-center gap-3 pb-2 md:pb-0 border-b border-gray-100 md:border-b-0">
-                      <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
-                        <svg
-                          className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#FF5B22]"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={1.8}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d={
-                              LABEL_ICONS[row.label] ||
-                              'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
-                            }
-                          />
-                        </svg>
+                {spec.rows.map((row, i) => {
+                  const icon = (
+                    <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
+                      <svg
+                        className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#FF5B22]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={1.8}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d={
+                            LABEL_ICONS[row.label] ||
+                            'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+                          }
+                        />
+                      </svg>
+                    </div>
+                  );
+
+                  return (
+                    <motion.div
+                      key={row.label}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.35, delay: 0.06 * i, ease: 'easeOut' }}
+                      className="rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 transition-all duration-200"
+                    >
+                      {/* Mobile layout: label on top, two value pills below */}
+                      <div className="md:hidden p-3.5">
+                        <div className="flex items-center gap-3 pb-2.5 mb-2.5 border-b border-gray-100">
+                          {icon}
+                          <span className="text-sm font-bold text-gray-800">{row.label}</span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <span className="text-sm text-gray-600 font-medium text-center bg-orange-50/60 rounded-lg px-2 py-2.5">
+                            {row.crca}
+                          </span>
+                          <span className="text-sm text-gray-600 font-medium text-center bg-gray-50 rounded-lg px-2 py-2.5">
+                            {row.hrHrpo}
+                          </span>
+                        </div>
                       </div>
-                      <span className="text-sm font-bold text-gray-800">{row.label}</span>
-                    </div>
 
-                    <div className="flex md:flex-col items-center md:items-center gap-2 md:gap-1">
-                      <span className="md:hidden text-[0.55rem] font-bold uppercase tracking-wider text-[#FF5B22]">
-                        {spec.columns[0]}
-                      </span>
-                      <span className="text-sm text-gray-600 font-medium text-center w-full bg-orange-50/50 md:bg-transparent rounded-lg md:rounded-none px-3 md:px-0 py-2 md:py-0">
-                        {row.crca}
-                      </span>
-                    </div>
-
-                    <div className="flex md:flex-col items-center md:items-center gap-2 md:gap-1">
-                      <span className="md:hidden text-[0.55rem] font-bold uppercase tracking-wider text-gray-500">
-                        {spec.columns[1]}
-                      </span>
-                      <span className="text-sm text-gray-600 font-medium text-center w-full bg-gray-50 md:bg-transparent rounded-lg md:rounded-none px-3 md:px-0 py-2 md:py-0">
-                        {row.hrHrpo}
-                      </span>
-                    </div>
-                  </motion.div>
-                ))}
+                      {/* Desktop layout: true 3-column grid */}
+                      <div className="hidden md:grid md:grid-cols-[1fr_1fr_1fr] md:gap-4 md:items-center md:p-4">
+                        <div className="flex items-center gap-3">
+                          {icon}
+                          <span className="text-sm font-bold text-gray-800">{row.label}</span>
+                        </div>
+                        <span className="text-sm text-gray-600 font-medium text-center">{row.crca}</span>
+                        <span className="text-sm text-gray-600 font-medium text-center">{row.hrHrpo}</span>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
 
               <div className="mt-5 md:mt-6 flex items-start gap-2.5 text-xs text-gray-400 bg-white rounded-xl px-4 py-3.5 border border-gray-100">
@@ -279,8 +355,9 @@ export default function SpecCategoryClient({ category, products }: SpecCategoryC
         </section>
       )}
 
+      {/* CTA */}
       <section className="border-t border-gray-100 bg-gray-50">
-        <div className="max-w-[1240px] mx-auto px-6 py-12 md:py-16 text-center">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-12 md:py-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -290,7 +367,7 @@ export default function SpecCategoryClient({ category, products }: SpecCategoryC
             <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
               Need More Information?
             </h3>
-            <p className="text-sm text-gray-500 mb-6 max-w-lg mx-auto">
+            <p className="text-sm text-gray-500 mb-6 max-w-lg mx-auto px-2">
               Contact our team for detailed specifications, stock availability, and custom size enquiries.
             </p>
             <Link
@@ -304,4 +381,4 @@ export default function SpecCategoryClient({ category, products }: SpecCategoryC
       </section>
     </main>
   );
-}
+}0

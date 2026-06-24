@@ -1,0 +1,222 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "aeronsteels28@gmail.com" [ref=e5] [cursor=pointer]:
+        - /url: mailto:aeronsteels28@gmail.com
+        - img [ref=e6]
+        - generic [ref=e8]: aeronsteels28@gmail.com
+      - link "+91 8307028125" [ref=e9] [cursor=pointer]:
+        - /url: tel:+918307028125
+        - img [ref=e10]
+        - text: +91 8307028125
+    - generic [ref=e13]:
+      - link "Aeron Steels AERON STEELS Private Limited" [ref=e14] [cursor=pointer]:
+        - /url: /
+        - img "Aeron Steels" [ref=e15]
+        - generic [ref=e16]:
+          - heading "AERON STEELS" [level=1] [ref=e17]
+          - generic [ref=e18]: Private Limited
+      - list [ref=e20]:
+        - listitem [ref=e21]:
+          - link "HOME" [ref=e22] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e23]:
+          - link "ABOUT US" [ref=e24] [cursor=pointer]:
+            - /url: /about-us
+        - listitem [ref=e25]:
+          - link "INFRASTRUCTURE" [ref=e26] [cursor=pointer]:
+            - /url: /infrastructure
+        - listitem [ref=e27]:
+          - link "CERTIFICATIONS" [ref=e28] [cursor=pointer]:
+            - /url: /certifications
+        - listitem [ref=e29]:
+          - link "PRODUCTS" [ref=e30] [cursor=pointer]:
+            - /url: /products
+            - text: PRODUCTS
+        - listitem [ref=e32]:
+          - link "CONTACT US" [ref=e33] [cursor=pointer]:
+            - /url: /contact-us
+      - link "GET A QUOTE" [ref=e34] [cursor=pointer]:
+        - /url: /contact-us
+  - main [ref=e35]:
+    - generic [ref=e37]:
+      - link "Home" [ref=e38] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e39]: /
+      - link "Products" [ref=e40] [cursor=pointer]:
+        - /url: /products
+      - generic [ref=e41]: /
+      - generic [ref=e42]: Mounting Parts
+    - generic [ref=e44]:
+      - heading "Mounting Parts" [level=1] [ref=e45]
+      - paragraph [ref=e46]: Browse our complete range of mounting parts. High-quality precision components manufactured by Aeron Steels Private Limited.
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - img
+        - textbox "Search products..." [ref=e51]
+      - generic [ref=e52]:
+        - generic [ref=e53]: 46 products
+        - button "A-Z" [ref=e55] [cursor=pointer]:
+          - img [ref=e56]
+          - generic [ref=e58]: A-Z
+          - img [ref=e59]
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - generic [ref=e65]:
+          - img "AMW (Front)" [ref=e67]
+          - generic [ref=e68]:
+            - heading "AMW (Front)" [level=3] [ref=e69]
+            - generic [ref=e70]:
+              - button "View Details" [ref=e71] [cursor=pointer]
+              - link "Request Quote" [ref=e72] [cursor=pointer]:
+                - /url: /contact-us?product=AMW%20(Front)
+        - generic [ref=e74]:
+          - img "Ashok Leyland (Front)" [ref=e76]
+          - generic [ref=e77]:
+            - heading "Ashok Leyland (Front)" [level=3] [ref=e78]
+            - generic [ref=e79]:
+              - button "View Details" [ref=e80] [cursor=pointer]
+              - link "Request Quote" [ref=e81] [cursor=pointer]:
+                - /url: /contact-us?product=Ashok%20Leyland%20(Front)
+        - generic [ref=e83]:
+          - img "Ashok Leyland Dost (Gearbox)" [ref=e85]
+          - generic [ref=e86]:
+            - heading "Ashok Leyland Dost (Gearbox)" [level=3] [ref=e87]
+            - generic [ref=e88]:
+              - button "View Details" [ref=e89] [cursor=pointer]
+              - link "Request Quote" [ref=e90] [cursor=pointer]:
+                - /url: /contact-us?product=Ashok%20Leyland%20Dost%20(Gearbox)
+        - generic [ref=e92]:
+          - img "Ashok Leyland Metacon" [ref=e94]
+          - generic [ref=e95]:
+            - heading "Ashok Leyland Metacon" [level=3] [ref=e96]
+            - generic [ref=e97]:
+              - button "View Details" [ref=e98] [cursor=pointer]
+              - link "Request Quote" [ref=e99] [cursor=pointer]:
+                - /url: /contact-us?product=Ashok%20Leyland%20Metacon
+        - generic [ref=e101]:
+          - img "Ashok Leyland Metacon (With Plate)" [ref=e103]
+          - generic [ref=e104]:
+            - heading "Ashok Leyland Metacon (With Plate)" [level=3] [ref=e105]
+            - generic [ref=e106]:
+              - button "View Details" [ref=e107] [cursor=pointer]
+              - link "Request Quote" [ref=e108] [cursor=pointer]:
+                - /url: /contact-us?product=Ashok%20Leyland%20Metacon%20(With%20Plate)
+        - generic [ref=e110]:
+          - img "Ashok Leyland U Truck" [ref=e112]
+          - generic [ref=e113]:
+            - heading "Ashok Leyland U Truck" [level=3] [ref=e114]
+            - generic [ref=e115]:
+              - button "View Details" [ref=e116] [cursor=pointer]
+              - link "Request Quote" [ref=e117] [cursor=pointer]:
+                - /url: /contact-us?product=Ashok%20Leyland%20U%20Truck
+        - generic [ref=e119]:
+          - img "Bharat Benz (Cabin) (L+R)" [ref=e121]
+          - generic [ref=e122]:
+            - heading "Bharat Benz (Cabin) (L+R)" [level=3] [ref=e123]
+            - generic [ref=e124]:
+              - button "View Details" [ref=e125] [cursor=pointer]
+              - link "Request Quote" [ref=e126] [cursor=pointer]:
+                - /url: /contact-us?product=Bharat%20Benz%20(Cabin)%20(L%2BR)
+        - generic [ref=e128]:
+          - img "Bharat Benz (Front)" [ref=e130]
+          - generic [ref=e131]:
+            - heading "Bharat Benz (Front)" [level=3] [ref=e132]
+            - generic [ref=e133]:
+              - button "View Details" [ref=e134] [cursor=pointer]
+              - link "Request Quote" [ref=e135] [cursor=pointer]:
+                - /url: /contact-us?product=Bharat%20Benz%20(Front)
+      - generic [ref=e136]:
+        - button "← Prev" [disabled] [ref=e137]
+        - button "1" [ref=e138] [cursor=pointer]
+        - button "2" [ref=e139] [cursor=pointer]
+        - generic [ref=e140]: ...
+        - button "6" [ref=e141] [cursor=pointer]
+        - button "Next →" [ref=e142] [cursor=pointer]
+  - contentinfo [ref=e143]:
+    - generic [ref=e145]:
+      - generic [ref=e146]:
+        - heading "AERON STEELS" [level=1] [ref=e147]
+        - paragraph [ref=e148]: At ASPL, we specialize in high-quality steel products, committed to excellence and innovation in manufacturing. Our dedication ensures we meet the diverse needs of our clients across various industries.
+        - link "KNOW MORE ⊕" [ref=e149] [cursor=pointer]:
+          - /url: /about-us
+      - generic [ref=e150]:
+        - heading "Quick links" [level=4] [ref=e151]
+        - list [ref=e152]:
+          - listitem [ref=e153]:
+            - link "▸ About Us" [ref=e154] [cursor=pointer]:
+              - /url: /about-us
+              - generic [ref=e155]: ▸
+              - text: About Us
+          - listitem [ref=e156]:
+            - link "▸ Products" [ref=e157] [cursor=pointer]:
+              - /url: /products
+              - generic [ref=e158]: ▸
+              - text: Products
+          - listitem [ref=e159]:
+            - link "▸ Infrastructure" [ref=e160] [cursor=pointer]:
+              - /url: /infrastructure
+              - generic [ref=e161]: ▸
+              - text: Infrastructure
+          - listitem [ref=e162]:
+            - link "▸ Certifications" [ref=e163] [cursor=pointer]:
+              - /url: /certifications
+              - generic [ref=e164]: ▸
+              - text: Certifications
+          - listitem [ref=e165]:
+            - link "▸ Contact Us" [ref=e166] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e167]: ▸
+              - text: Contact Us
+      - generic [ref=e168]:
+        - heading "Our Services" [level=4] [ref=e169]
+        - list [ref=e170]:
+          - listitem [ref=e171]:
+            - link "▸ Custom Sheet Metal Components" [ref=e172] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e173]: ▸
+              - text: Custom Sheet Metal Components
+          - listitem [ref=e174]:
+            - link "▸ Slitted Coils" [ref=e175] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e176]: ▸
+              - text: Slitted Coils
+          - listitem [ref=e177]:
+            - link "▸ Cut-to-length Sheets & Strips" [ref=e178] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e179]: ▸
+              - text: Cut-to-length Sheets & Strips
+          - listitem [ref=e180]:
+            - link "▸ Custom Bar Components" [ref=e181] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e182]: ▸
+              - text: Custom Bar Components
+      - generic [ref=e183]:
+        - heading "Contact Us" [level=4] [ref=e184]
+        - generic [ref=e185]:
+          - generic [ref=e186]:
+            - generic [ref=e187]: ⌂
+            - paragraph [ref=e188]:
+              - text: Khewat no 1306, Village Baniyani,
+              - text: Bhiwani Road, Rohtak, Haryana 124001
+          - generic [ref=e189]:
+            - generic [ref=e190]: 📱
+            - strong [ref=e191]: +91 8307028125
+          - generic [ref=e192]:
+            - generic [ref=e193]: ✉
+            - paragraph [ref=e194]: aeronsteels28@gmail.com
+        - generic [ref=e195]:
+          - link "Facebook" [ref=e196] [cursor=pointer]:
+            - /url: https://facebook.com/aeronsteels
+            - text: f
+          - link "Twitter" [ref=e197] [cursor=pointer]:
+            - /url: https://twitter.com/aeronsteels
+            - text: t
+          - link "LinkedIn" [ref=e198] [cursor=pointer]:
+            - /url: https://linkedin.com/company/aeronsteels
+            - text: in
+          - link "YouTube" [ref=e199] [cursor=pointer]:
+            - /url: https://youtube.com/@aeronsteels
+            - text: yt
+  - button "Open Next.js Dev Tools" [ref=e205] [cursor=pointer]:
+    - img [ref=e206]

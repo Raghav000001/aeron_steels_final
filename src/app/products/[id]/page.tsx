@@ -5,7 +5,7 @@ import CategoryClient from './CategoryClient';
 import SpecCategoryClient from './SpecCategoryClient';
 import { connectDB } from '@/lib/mongodb';
 import { Product } from '@/models/Product';
-import { getCategoryBySlug, getProductsBySlug } from '@/lib/item-data';
+import { getCategoryBySlug, getProductsBySlug, getAllCategories } from '@/lib/item-data';
 
 interface ProductPageProps {
   params: Promise<{ id: string }>;
@@ -77,10 +77,11 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       notFound();
     }
     const products = getProductsBySlug(id);
+    const allCategories = getAllCategories();
     if (category.slug === 'hr-hrpo-crca-slit-coils' || category.slug === 'hr-hrpo-crca-sheets-strips') {
-      return <SpecCategoryClient category={category} products={products} />;
+      return <SpecCategoryClient category={category} products={products} categories={allCategories} />;
     }
-    return <CategoryClient category={category} products={products} />;
+    return <CategoryClient category={category} products={products} categories={allCategories} />;
   }
 
   // Otherwise treat as MongoDB product ID

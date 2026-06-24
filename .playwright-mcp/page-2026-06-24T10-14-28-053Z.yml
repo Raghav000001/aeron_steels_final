@@ -1,0 +1,181 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "aeronsteels28@gmail.com" [ref=e5] [cursor=pointer]:
+        - /url: mailto:aeronsteels28@gmail.com
+        - img [ref=e6]
+        - generic [ref=e8]: aeronsteels28@gmail.com
+      - link "+91 8307028125" [ref=e9] [cursor=pointer]:
+        - /url: tel:+918307028125
+        - img [ref=e10]
+        - text: +91 8307028125
+    - generic [ref=e13]:
+      - link "Aeron Steels AERON STEELS Private Limited" [ref=e14] [cursor=pointer]:
+        - /url: /
+        - img "Aeron Steels" [ref=e15]
+        - generic [ref=e16]:
+          - heading "AERON STEELS" [level=1] [ref=e17]
+          - generic [ref=e18]: Private Limited
+      - list [ref=e20]:
+        - listitem [ref=e21]:
+          - link "HOME" [ref=e22] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e23]:
+          - link "ABOUT US" [ref=e24] [cursor=pointer]:
+            - /url: /about-us
+        - listitem [ref=e25]:
+          - link "INFRASTRUCTURE" [ref=e26] [cursor=pointer]:
+            - /url: /infrastructure
+        - listitem [ref=e27]:
+          - link "CERTIFICATIONS" [ref=e28] [cursor=pointer]:
+            - /url: /certifications
+        - listitem [ref=e29]:
+          - link "PRODUCTS" [ref=e30] [cursor=pointer]:
+            - /url: /products
+            - text: PRODUCTS
+        - listitem [ref=e32]:
+          - link "CONTACT US" [ref=e33] [cursor=pointer]:
+            - /url: /contact-us
+      - link "GET A QUOTE" [ref=e34] [cursor=pointer]:
+        - /url: /contact-us
+  - main [ref=e35]:
+    - generic [ref=e37]:
+      - link "Home" [ref=e38] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e39]: /
+      - link "Products" [ref=e40] [cursor=pointer]:
+        - /url: /products
+      - generic [ref=e41]: /
+      - generic [ref=e42]: HR / HRPO & CRCA Slit Coils
+    - generic [ref=e44]:
+      - heading "HR / HRPO & CRCA Slit Coils" [level=1] [ref=e45]
+      - paragraph [ref=e46]: Precision slit coils available in multiple thicknesses, widths and grades for industrial applications.
+    - generic [ref=e49]:
+      - img "1" [ref=e52]
+      - generic [ref=e53]:
+        - img "2" [ref=e55]
+        - img "3" [ref=e57]
+    - generic [ref=e59]:
+      - generic [ref=e60]:
+        - text: Technical Specifications
+        - heading "Specifications" [level=2] [ref=e61]
+        - paragraph [ref=e62]: Detailed specifications for hr / hrpo & crca slit coils
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - generic [ref=e65]: Specification
+          - generic [ref=e66]: CRCA
+          - generic [ref=e67]: HR / HRPO
+        - generic [ref=e68]:
+          - generic [ref=e69]:
+            - generic [ref=e70]:
+              - img [ref=e72]
+              - generic [ref=e74]: Thickness
+            - generic [ref=e76]: 0.40 to 1.6 mm
+            - generic [ref=e78]: 1.6 mm to 3.5 mm
+          - generic [ref=e79]:
+            - generic [ref=e80]:
+              - img [ref=e82]
+              - generic [ref=e84]: Width
+            - generic [ref=e86]: 10 mm to 250 mm
+            - generic [ref=e88]: 20 mm to 450 mm
+          - generic [ref=e89]:
+            - generic [ref=e90]:
+              - img [ref=e92]
+              - generic [ref=e94]: Grade
+            - generic [ref=e96]: As per Availability
+            - generic [ref=e98]: As per Availability
+        - generic [ref=e99]:
+          - img [ref=e100]
+          - generic [ref=e102]: Specifications are indicative and subject to availability. Please contact us for current stock and exact dimensions.
+    - generic [ref=e105]:
+      - heading "Need More Information?" [level=3] [ref=e106]
+      - paragraph [ref=e107]: Contact our team for detailed specifications, stock availability, and custom size enquiries.
+      - link "Get in Touch" [ref=e108] [cursor=pointer]:
+        - /url: /contact-us
+  - contentinfo [ref=e109]:
+    - generic [ref=e111]:
+      - generic [ref=e112]:
+        - heading "AERON STEELS" [level=1] [ref=e113]
+        - paragraph [ref=e114]: At ASPL, we specialize in high-quality steel products, committed to excellence and innovation in manufacturing. Our dedication ensures we meet the diverse needs of our clients across various industries.
+        - link "KNOW MORE ⊕" [ref=e115] [cursor=pointer]:
+          - /url: /about-us
+      - generic [ref=e116]:
+        - heading "Quick links" [level=4] [ref=e117]
+        - list [ref=e118]:
+          - listitem [ref=e119]:
+            - link "▸ About Us" [ref=e120] [cursor=pointer]:
+              - /url: /about-us
+              - generic [ref=e121]: ▸
+              - text: About Us
+          - listitem [ref=e122]:
+            - link "▸ Products" [ref=e123] [cursor=pointer]:
+              - /url: /products
+              - generic [ref=e124]: ▸
+              - text: Products
+          - listitem [ref=e125]:
+            - link "▸ Infrastructure" [ref=e126] [cursor=pointer]:
+              - /url: /infrastructure
+              - generic [ref=e127]: ▸
+              - text: Infrastructure
+          - listitem [ref=e128]:
+            - link "▸ Certifications" [ref=e129] [cursor=pointer]:
+              - /url: /certifications
+              - generic [ref=e130]: ▸
+              - text: Certifications
+          - listitem [ref=e131]:
+            - link "▸ Contact Us" [ref=e132] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e133]: ▸
+              - text: Contact Us
+      - generic [ref=e134]:
+        - heading "Our Services" [level=4] [ref=e135]
+        - list [ref=e136]:
+          - listitem [ref=e137]:
+            - link "▸ Custom Sheet Metal Components" [ref=e138] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e139]: ▸
+              - text: Custom Sheet Metal Components
+          - listitem [ref=e140]:
+            - link "▸ Slitted Coils" [ref=e141] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e142]: ▸
+              - text: Slitted Coils
+          - listitem [ref=e143]:
+            - link "▸ Cut-to-length Sheets & Strips" [ref=e144] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e145]: ▸
+              - text: Cut-to-length Sheets & Strips
+          - listitem [ref=e146]:
+            - link "▸ Custom Bar Components" [ref=e147] [cursor=pointer]:
+              - /url: /contact-us
+              - generic [ref=e148]: ▸
+              - text: Custom Bar Components
+      - generic [ref=e149]:
+        - heading "Contact Us" [level=4] [ref=e150]
+        - generic [ref=e151]:
+          - generic [ref=e152]:
+            - generic [ref=e153]: ⌂
+            - paragraph [ref=e154]:
+              - text: Khewat no 1306, Village Baniyani,
+              - text: Bhiwani Road, Rohtak, Haryana 124001
+          - generic [ref=e155]:
+            - generic [ref=e156]: 📱
+            - strong [ref=e157]: +91 8307028125
+          - generic [ref=e158]:
+            - generic [ref=e159]: ✉
+            - paragraph [ref=e160]: aeronsteels28@gmail.com
+        - generic [ref=e161]:
+          - link "Facebook" [ref=e162] [cursor=pointer]:
+            - /url: https://facebook.com/aeronsteels
+            - text: f
+          - link "Twitter" [ref=e163] [cursor=pointer]:
+            - /url: https://twitter.com/aeronsteels
+            - text: t
+          - link "LinkedIn" [ref=e164] [cursor=pointer]:
+            - /url: https://linkedin.com/company/aeronsteels
+            - text: in
+          - link "YouTube" [ref=e165] [cursor=pointer]:
+            - /url: https://youtube.com/@aeronsteels
+            - text: yt
+  - button "Open Next.js Dev Tools" [ref=e171] [cursor=pointer]:
+    - img [ref=e172]

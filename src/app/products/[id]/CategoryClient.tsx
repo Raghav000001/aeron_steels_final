@@ -10,6 +10,7 @@ import type { CategoryInfo, ProductItem } from '@/lib/item-data';
 interface CategoryClientProps {
   category: CategoryInfo;
   products: ProductItem[];
+  categories?: CategoryInfo[];
 }
 
 const ITEMS_PER_PAGE = 8;
@@ -23,7 +24,7 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'date-asc', label: 'Oldest First' },
 ];
 
-export default function CategoryClient({ category, products }: CategoryClientProps) {
+export default function CategoryClient({ category, products, categories }: CategoryClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<SortOption>('name-asc');
   const [currentPage, setCurrentPage] = useState(1);
@@ -89,7 +90,7 @@ export default function CategoryClient({ category, products }: CategoryClientPro
   const mapToCardData = (p: ProductItem): ProductCardData => ({
     id: p.name,
     name: p.name,
-    image: p.imagePath,
+    image: encodeURI(p.imagePath),
   });
 
   return (
@@ -126,6 +127,32 @@ export default function CategoryClient({ category, products }: CategoryClientPro
           </motion.p>
         </div>
       </section>
+
+      {/* Category Navigation Cards */}
+      {categories && categories.length > 0 && (
+        <section className="py-6 border-b border-gray-100 bg-white">
+          <div className="max-w-[1240px] mx-auto px-6">
+            <div className="flex flex-wrap gap-3">
+              {categories.map((cat) => {
+                const isActive = cat.slug === category.slug;
+                return (
+                  <Link
+                    key={cat.slug}
+                    href={`/products/${cat.slug}`}
+                    className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 ${
+                      isActive
+                        ? 'bg-[#FF5B22] text-white shadow-sm shadow-orange-200'
+                        : 'bg-gray-100 text-gray-700 hover:bg-[#FF5B22]/10 hover:text-[#FF5B22] border border-transparent hover:border-[#FF5B22]/20'
+                    }`}
+                  >
+                    {cat.displayName}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Controls: Search + Sort */}
       <section className="py-8 border-b border-gray-100">
@@ -220,7 +247,7 @@ export default function CategoryClient({ category, products }: CategoryClientPro
               )}
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {paginated.map((product, idx) => (
                 <motion.div
                   key={product.name}
@@ -309,7 +336,7 @@ export default function CategoryClient({ category, products }: CategoryClientPro
             >
               <div className="relative bg-gray-100 flex items-center justify-center p-6">
                 <img
-                  src={lightboxProduct.imagePath}
+                  src={encodeURI(lightboxProduct.imagePath)}
                   alt={lightboxProduct.name}
                   className="max-h-[55vh] w-full object-contain"
                 />

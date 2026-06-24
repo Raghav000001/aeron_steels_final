@@ -73,6 +73,7 @@ export default function Header() {
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const megaMenuZoneRef = useRef<HTMLDivElement>(null);
+  const megaMenuPanelRef = useRef<HTMLDivElement>(null);
   const firstMobileLinkRef = useRef<HTMLAnchorElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -109,7 +110,10 @@ export default function Header() {
   useEffect(() => {
     if (!productsOpen) return;
     const handleClickOutside = (e: MouseEvent) => {
-      if (megaMenuZoneRef.current && !megaMenuZoneRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      const insideZone = megaMenuZoneRef.current?.contains(target);
+      const insidePanel = megaMenuPanelRef.current?.contains(target);
+      if (!insideZone && !insidePanel) {
         setProductsOpen(false);
       }
     };
@@ -185,10 +189,10 @@ export default function Header() {
       {/* Main nav row */}
       <div
         className={`relative transition-colors duration-300 ${
-          scrolled ? 'bg-black/20 backdrop-blur-xl border-b border-white/5' : 'bg-transparent'
+          scrolled ? 'bg-black/20 backdrop-blur-xl border-b border-white/5' : 'bg-[#1C1D1F]'
         }`}
       >
-        <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between h-14 md:h-16 lg:h-[72px]">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between h-16 md:h-[72px] lg:h-20">
           <Link href="/" className="flex items-center gap-2 md:gap-3 flex-shrink-0 min-w-0">
             <Image
               src="/images/logo-icon.png"
@@ -196,7 +200,7 @@ export default function Header() {
               width={120}
               height={120}
               priority
-              className="block h-12 md:h-14 lg:h-16 w-auto object-contain brightness-0 invert -my-2"
+              className="block h-11 md:h-12 lg:h-14 w-auto object-contain brightness-0 invert"
             />
             <div className="min-w-0">
               <h1 className="text-base sm:text-lg lg:text-2xl font-black uppercase tracking-wide text-white leading-tight whitespace-nowrap">
@@ -265,33 +269,6 @@ export default function Header() {
                 );
               })}
             </ul>
-
-            {/* Mega menu panel — anchored to this relative zone */}
-            <AnimatePresence>
-              {productsOpen && (
-                <motion.div
-                  id={`${menuId}-mega-menu`}
-                  role="menu"
-                  initial={prefersReducedMotion ? false : { opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={prefersReducedMotion ? undefined : { opacity: 0, y: -6 }}
-                  transition={{ duration: 0.18, ease: 'easeOut' }}
-                  className="absolute top-full left-1/2 -translate-x-1/2 w-screen max-w-[100vw] z-50 bg-white shadow-2xl border-t border-gray-100"
-                >
-                  <div className="max-w-[900px] mx-auto px-6 py-10">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                      {PRODUCT_MENU_CATEGORIES.map((cat) => (
-                        <CategoryCard
-                          key={cat.slug}
-                          category={cat}
-                          onClick={() => setProductsOpen(false)}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
 
           <Link
@@ -326,6 +303,36 @@ export default function Header() {
             />
           </button>
         </div>
+
+        {/* Mega menu panel — lives in the full-width wrapper so it centers on the page, not on the nav-links cluster */}
+        <AnimatePresence>
+          {productsOpen && (
+            <motion.div
+              ref={megaMenuPanelRef}
+              id={`${menuId}-mega-menu`}
+              role="menu"
+              onMouseEnter={cancelClose}
+              onMouseLeave={scheduleClose}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={prefersReducedMotion ? undefined : { opacity: 0, y: -6 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+              className="absolute top-full left-0 right-0 z-50 bg-white shadow-2xl border-t border-gray-100"
+            >
+              <div className="max-w-[900px] mx-auto px-6 py-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                  {PRODUCT_MENU_CATEGORIES.map((cat) => (
+                    <CategoryCard
+                      key={cat.slug}
+                      category={cat}
+                      onClick={() => setProductsOpen(false)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Mobile drawer */}
