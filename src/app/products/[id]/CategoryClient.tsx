@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from '@/components/ui/ProductCard';
 import type { ProductCardData } from '@/components/ui/ProductCard';
 import type { CategoryInfo, ProductItem } from '@/lib/item-data';
+import { encodeImagePath } from '@/lib/image-path';
 
 interface CategoryClientProps {
   category: CategoryInfo;
@@ -90,7 +91,7 @@ export default function CategoryClient({ category, products, categories }: Categ
   const mapToCardData = (p: ProductItem): ProductCardData => ({
     id: p.name,
     name: p.name,
-    image: encodeURI(p.imagePath),
+    image: encodeImagePath(p.imagePath),
   });
 
   return (
@@ -336,7 +337,7 @@ export default function CategoryClient({ category, products, categories }: Categ
             >
               <div className="relative bg-gray-100 flex items-center justify-center p-6">
                 <img
-                  src={encodeURI(lightboxProduct.imagePath)}
+                  src={encodeImagePath(lightboxProduct.imagePath)}
                   alt={lightboxProduct.name}
                   className="max-h-[55vh] w-full object-contain"
                 />
