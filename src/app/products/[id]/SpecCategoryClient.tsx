@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { encodeImagePath } from '@/lib/image-path';
+import { encodeImagePath, pathHasPlusSign } from '@/lib/image-path';
 import type { CategoryInfo, ProductItem } from '@/lib/item-data';
 
 interface SpecRow {
@@ -182,6 +182,7 @@ export default function SpecCategoryClient({ category, products, categories }: S
                 src={encodeImagePath(mainImage!.imagePath)}
                 alt={mainImage!.name}
                 fill
+                unoptimized={pathHasPlusSign(mainImage!.imagePath)}
                 className="object-contain p-6 md:p-10 transition-transform duration-500 group-hover:scale-105"
                 sizes="100vw"
                 priority
@@ -200,6 +201,7 @@ export default function SpecCategoryClient({ category, products, categories }: S
                     src={encodeImagePath(mainImage!.imagePath)}
                     alt={mainImage!.name}
                     fill
+                    unoptimized={pathHasPlusSign(mainImage!.imagePath)}
                     className="object-contain p-4 md:p-8 transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 1024px) 100vw, 60vw"
                     priority
@@ -220,6 +222,7 @@ export default function SpecCategoryClient({ category, products, categories }: S
                       src={encodeImagePath(img.imagePath)}
                       alt={img.name}
                       fill
+                      unoptimized={pathHasPlusSign(img.imagePath)}
                       className="object-contain p-4 md:p-6 transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 1024px) 50vw, 40vw"
                     />

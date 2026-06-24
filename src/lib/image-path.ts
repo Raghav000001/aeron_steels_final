@@ -30,3 +30,24 @@ export function encodeImagePath(rawPath: string): string {
     .map((segment) => encodeURIComponent(segment).replace(/\+/g, '%2B'))
     .join('/');
 }
+
+/**
+ * True if the raw (unencoded) path contains a literal "+" character.
+ *
+ * Next.js's <Image> component routes every src through its built-in
+ * optimizer (/_next/image?url=...), which re-encodes/decodes the URL as
+ * it passes through multiple layers (query-string parsing, then an
+ * internal fetch to read the file). Somewhere in that chain, "%2B" can
+ * come back out as a literal "+" — and then get re-interpreted as a
+ * space by whichever layer reads it next, producing a 404 for any
+ * filename containing "+". Files without "+" never hit this path and
+ * optimize/serve fine.
+ *
+ * Use this to decide whether to pass `unoptimized` to <Image> — bypassing
+ * the optimizer for just these files avoids the double encode/decode
+ * round-trip entirely, at the cost of those specific images not being
+ * resized/compressed by Next.js.
+ */
+export function pathHasPlusSign(rawPath: string): boolean {
+  return rawPath.includes('+');
+}
