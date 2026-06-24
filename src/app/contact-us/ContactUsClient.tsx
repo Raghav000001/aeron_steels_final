@@ -66,6 +66,7 @@ export default function ContactUsClient() {
         title="Contact Us"
         subtitle="Home > Contact Us"
         bgImage="/images/service_power_1778761289382.png"
+        className="h-[650px]"
       />
 
       <section className="py-20 md:py-28 bg-white overflow-hidden">

@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useId } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 const navLinks = [
   { href: '/', label: 'HOME' },
@@ -65,11 +67,26 @@ export default function Header() {
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const pathname = usePathname();
+  const prefersReducedMotion = useReducedMotion();
+  const menuId = useId();
+
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const megaMenuZoneRef = useRef<HTMLDivElement>(null);
+  const firstMobileLinkRef = useRef<HTMLAnchorElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
+  // --- Scroll state: rAF-throttled, passive listener ---
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80);
+    let ticking = false;
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 80);
+        ticking = false;
+      });
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
@@ -100,13 +117,33 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [productsOpen]);
 
+  // --- Escape key closes whichever overlay is open ---
+  useEffect(() => {
+    if (!productsOpen && !menuOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      if (productsOpen) setProductsOpen(false);
+      if (menuOpen) {
+        setMenuOpen(false);
+        setMobileProductsOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [productsOpen, menuOpen]);
+
+  // --- Lock body scroll while mobile drawer is open, send focus into it ---
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden';
+      firstMobileLinkRef.current?.focus();
     } else {
       document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [menuOpen]);
 
   const closeMobile = useCallback(() => {
@@ -114,125 +151,176 @@ export default function Header() {
     setMobileProductsOpen(false);
   }, []);
 
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-sans">
-            <div
-        className={`transition-all duration-300 ${
-          scrolled
-            ? 'bg-[#1C1D1F] border-b border-white/5'
-            : 'bg-black/20 backdrop-blur-md'
-        }`}
-      >
-        <div className="max-w-[1240px] mx-auto px-6 py-2 md:py-2.5 flex items-center justify-between text-xs md:text-sm text-gray-300">
-          <span className="hidden sm:flex items-center gap-2">
-            <svg className="w-[14px] h-[14px] md:w-4 md:h-4 text-[#FF5B22]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            Bhiwani Road, Rohtak, Haryana
-          </span>
+  const isActive = useCallback(
+    (href: string) => (href === '/' ? pathname === '/' : pathname?.startsWith(href)),
+    [pathname]
+  );
 
-          <div className="flex items-center gap-5 md:gap-8 w-full sm:w-auto justify-between sm:justify-end">
-            <span className="flex items-center gap-2">
-              <svg className="w-[14px] h-[14px] md:w-4 md:h-4 text-[#FF5B22]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              aeronsteels28@gmail.com
-            </span>
-            <span className="flex items-center gap-2">
-              <svg className="w-[14px] h-[14px] md:w-4 md:h-4 text-[#FF5B22]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              +91 8307028125
-            </span>
-          </div>
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 font-sans">
+      {/* Top contact bar */}
+      <div className="bg-black border-b border-white/5">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-2 md:py-2.5 flex flex-wrap items-center justify-end gap-x-5 gap-y-1 text-[11px] sm:text-xs md:text-sm text-white">
+          <a
+            href="mailto:aeronsteels28@gmail.com"
+            className="flex items-center gap-2 hover:text-[#FF5B22] transition-colors"
+          >
+            <svg className="w-[14px] h-[14px] md:w-4 md:h-4 text-[#FF5B22] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span className="truncate">aeronsteels28@gmail.com</span>
+          </a>
+          <a
+            href="tel:+918307028125"
+            className="flex items-center gap-2 hover:text-[#FF5B22] transition-colors"
+          >
+            <svg className="w-[14px] h-[14px] md:w-4 md:h-4 text-[#FF5B22] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            +91 8307028125
+          </a>
         </div>
       </div>
 
+      {/* Main nav row */}
       <div
-        className={`transition-all duration-300 ${
-          scrolled
-            ? 'bg-[#1C1D1F] shadow-lg shadow-black/20'
-            : 'bg-transparent'
+        className={`relative transition-colors duration-300 ${
+          scrolled ? 'bg-black/20 backdrop-blur-xl border-b border-white/5' : 'bg-transparent'
         }`}
       >
-        <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between h-[72px] md:h-20 lg:h-[100px]">
-          <Link href="/" className="flex items-center gap-2 md:gap-6 lg:gap-7 flex-shrink-0">
-            <img
+        <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between h-14 md:h-16 lg:h-[72px]">
+          <Link href="/" className="flex items-center gap-2 md:gap-3 flex-shrink-0 min-w-0">
+            <Image
               src="/images/logo-icon.png"
               alt="Aeron Steels"
-              className="block md:hidden h-[34px] w-auto object-contain brightness-0 invert"
+              width={120}
+              height={120}
+              priority
+              className="block h-12 md:h-14 lg:h-16 w-auto object-contain brightness-0 invert -my-2"
             />
-            <img
-              src="/images/logo.png"
-              alt="Aeron Steels"
-              className="hidden md:block h-[45px] lg:h-[90px] w-auto object-contain brightness-0 invert"
-            />
-            <div className="block md:hidden">
-              <h1 className="text-lg font-black uppercase tracking-wide text-white leading-tight whitespace-nowrap">
+            <div className="min-w-0">
+              <h1 className="text-base sm:text-lg lg:text-2xl font-black uppercase tracking-wide text-white leading-tight whitespace-nowrap">
                 <span className="text-[#FF5B22]">AERON</span> STEELS
               </h1>
-              <span className="text-[10px] text-gray-400 uppercase font-medium tracking-widest block whitespace-nowrap">
+              <span
+                className={`text-[9px] sm:text-[10px] lg:text-xs uppercase font-medium tracking-widest block whitespace-nowrap transition-colors duration-300 ${
+                  scrolled ? 'text-white/70' : 'text-gray-400'
+                }`}
+              >
                 Private Limited
               </span>
             </div>
           </Link>
 
-          <ul className="hidden md:flex items-center gap-4 lg:gap-8 flex-shrink-0 whitespace-nowrap">
-            {navLinks.map((link) => {
-              if (link.label === 'PRODUCTS') {
+          {/* Desktop nav + mega menu trigger zone */}
+          <div
+            ref={megaMenuZoneRef}
+            className="relative hidden md:flex items-center"
+            onMouseLeave={scheduleClose}
+          >
+            <ul className="flex items-center gap-4 lg:gap-8 flex-shrink-0 whitespace-nowrap">
+              {navLinks.map((link) => {
+                const active = isActive(link.href);
+                if (link.label === 'PRODUCTS') {
+                  return (
+                    <li
+                      key={link.href}
+                      onMouseEnter={() => {
+                        cancelClose();
+                        setProductsOpen(true);
+                      }}
+                    >
+                      <Link
+                        href={link.href}
+                        aria-haspopup="true"
+                        aria-expanded={productsOpen}
+                        aria-controls={`${menuId}-mega-menu`}
+                        className={`relative text-[0.7rem] lg:text-[0.75rem] font-bold uppercase tracking-wider transition-colors duration-200 inline-block py-2 ${
+                          active ? 'text-[#FF5B22]' : 'text-white/90 hover:text-[#FF5B22]'
+                        }`}
+                      >
+                        PRODUCTS
+                        {active && (
+                          <span className="absolute -bottom-0.5 left-0 right-0 h-[2px] bg-[#FF5B22] rounded-full" />
+                        )}
+                      </Link>
+                    </li>
+                  );
+                }
                 return (
-                  <li
-                    key={link.href}
-                    className="relative"
-                    onMouseEnter={() => { cancelClose(); setProductsOpen(true); }}
-                  >
+                  <li key={link.href} onMouseEnter={cancelClose}>
                     <Link
                       href={link.href}
-                      className="text-white/90 hover:text-[#FF5B22] text-[0.7rem] lg:text-[0.75rem] font-bold uppercase tracking-wider transition-colors duration-200 inline-block"
+                      aria-current={active ? 'page' : undefined}
+                      className={`relative text-[0.7rem] lg:text-[0.75rem] font-bold uppercase tracking-wider transition-colors duration-200 inline-block py-2 ${
+                        active ? 'text-[#FF5B22]' : 'text-white/90 hover:text-[#FF5B22]'
+                      }`}
                     >
-                      PRODUCTS
+                      {link.label}
+                      {active && (
+                        <span className="absolute -bottom-0.5 left-0 right-0 h-[2px] bg-[#FF5B22] rounded-full" />
+                      )}
                     </Link>
                   </li>
                 );
-              }
-              return (
-                <li key={link.href} onMouseEnter={cancelClose}>
-                  <Link
-                    href={link.href}
-                    className="text-white/90 hover:text-[#FF5B22] text-[0.7rem] lg:text-[0.75rem] font-bold uppercase tracking-wider transition-colors duration-200 inline-block"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+              })}
+            </ul>
+
+            {/* Mega menu panel — anchored to this relative zone */}
+            <AnimatePresence>
+              {productsOpen && (
+                <motion.div
+                  id={`${menuId}-mega-menu`}
+                  role="menu"
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={prefersReducedMotion ? undefined : { opacity: 0, y: -6 }}
+                  transition={{ duration: 0.18, ease: 'easeOut' }}
+                  className="absolute top-full left-1/2 -translate-x-1/2 w-screen max-w-[100vw] z-50 bg-white shadow-2xl border-t border-gray-100"
+                >
+                  <div className="max-w-[900px] mx-auto px-6 py-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                      {PRODUCT_MENU_CATEGORIES.map((cat) => (
+                        <CategoryCard
+                          key={cat.slug}
+                          category={cat}
+                          onClick={() => setProductsOpen(false)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           <Link
             href="/contact-us"
-            className="hidden md:inline-flex bg-[#FF5B22] hover:bg-[#e04b19] text-white px-6 lg:px-8 py-2.5 text-[0.7rem] lg:text-[0.75rem] font-bold uppercase tracking-wider transition-all duration-200 rounded-sm"
+            className="hidden md:inline-flex bg-[#FF5B22] hover:bg-[#e04b19] active:bg-[#c43e10] text-white px-6 lg:px-8 py-2.5 text-[0.7rem] lg:text-[0.75rem] font-bold uppercase tracking-wider transition-all duration-200 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             GET A QUOTE
           </Link>
 
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2"
-            aria-label="Toggle menu"
+            ref={menuButtonRef}
+            onClick={() => setMenuOpen((v) => !v)}
+            className="md:hidden flex flex-col gap-1.5 p-2 -mr-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls={`${menuId}-mobile-drawer`}
           >
             <span
-              className={`block w-6 h-[2px] bg-white transition-all duration-300 ${
+              className={`block w-6 h-[2px] bg-white transition-transform duration-300 ${
                 menuOpen ? 'rotate-45 translate-y-[5px]' : ''
               }`}
             />
             <span
-              className={`block w-6 h-[2px] bg-white transition-all duration-300 ${
+              className={`block w-6 h-[2px] bg-white transition-opacity duration-300 ${
                 menuOpen ? 'opacity-0' : ''
               }`}
             />
             <span
-              className={`block w-6 h-[2px] bg-white transition-all duration-300 ${
+              className={`block w-6 h-[2px] bg-white transition-transform duration-300 ${
                 menuOpen ? '-rotate-45 -translate-y-[5px]' : ''
               }`}
             />
@@ -240,64 +328,40 @@ export default function Header() {
         </div>
       </div>
 
-      <div
-        ref={megaMenuZoneRef}
-        onMouseLeave={scheduleClose}
-      >
-        <AnimatePresence>
-          {productsOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.18, ease: 'easeOut' }}
-              className="absolute top-full left-0 right-0 z-50 bg-white shadow-2xl border-t border-gray-100"
-            >
-              <div className="max-w-[900px] mx-auto px-6 py-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                  {PRODUCT_MENU_CATEGORIES.map((cat) => (
-                    <CategoryCard
-                      key={cat.slug}
-                      category={cat}
-                      onClick={() => setProductsOpen(false)}
-                    />
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
+      {/* Mobile drawer */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            id={`${menuId}-mobile-drawer`}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
             className="fixed inset-0 z-50 md:hidden"
-            initial={{ opacity: 0 }}
+            initial={prefersReducedMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            exit={prefersReducedMotion ? undefined : { opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
             <motion.div
               className="absolute inset-0 bg-black/70 backdrop-blur-md"
               onClick={closeMobile}
-              initial={{ opacity: 0 }}
+              initial={prefersReducedMotion ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              exit={prefersReducedMotion ? undefined : { opacity: 0 }}
             />
 
             <motion.div
               className="absolute right-0 top-0 h-full w-[280px] max-w-[85vw] bg-[#1C1D1F] shadow-2xl overflow-y-auto"
-              initial={{ x: '100%' }}
+              initial={prefersReducedMotion ? false : { x: '100%' }}
               animate={{ x: 0 }}
-              exit={{ x: '100%' }}
+              exit={prefersReducedMotion ? undefined : { x: '100%' }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
               <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
                 <span className="text-white text-xs font-bold uppercase tracking-wider">Menu</span>
                 <button
                   onClick={closeMobile}
-                  className="text-gray-400 hover:text-white transition-colors p-1 cursor-pointer"
+                  className="text-gray-400 hover:text-white transition-colors p-1 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded"
                   aria-label="Close menu"
                 >
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -307,18 +371,23 @@ export default function Header() {
               </div>
 
               <div className="px-5 py-4 space-y-1">
-                {navLinks.map((link) => {
+                {navLinks.map((link, idx) => {
+                  const active = isActive(link.href);
                   if (link.label === 'PRODUCTS') {
                     return (
                       <div key={link.href}>
                         <button
-                          onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
-                          className="flex items-center justify-between w-full text-gray-300 hover:text-white text-sm font-bold uppercase py-3 transition-colors cursor-pointer"
+                          onClick={() => setMobileProductsOpen((v) => !v)}
+                          aria-expanded={mobileProductsOpen}
+                          aria-controls={`${menuId}-mobile-products`}
+                          className={`flex items-center justify-between w-full text-sm font-bold uppercase py-3 transition-colors cursor-pointer ${
+                            active ? 'text-[#FF5B22]' : 'text-gray-300 hover:text-white'
+                          }`}
                         >
                           PRODUCTS
                           <motion.svg
                             animate={{ rotate: mobileProductsOpen ? 180 : 0 }}
-                            transition={{ duration: 0.2 }}
+                            transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
                             className="w-4 h-4 text-gray-500"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -331,9 +400,10 @@ export default function Header() {
                         <AnimatePresence>
                           {mobileProductsOpen && (
                             <motion.div
-                              initial={{ height: 0, opacity: 0 }}
+                              id={`${menuId}-mobile-products`}
+                              initial={prefersReducedMotion ? false : { height: 0, opacity: 0 }}
                               animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
+                              exit={prefersReducedMotion ? undefined : { height: 0, opacity: 0 }}
                               transition={{ duration: 0.2 }}
                               className="overflow-hidden"
                             >
@@ -358,9 +428,13 @@ export default function Header() {
                   return (
                     <Link
                       key={link.href}
+                      ref={idx === 0 ? firstMobileLinkRef : undefined}
                       href={link.href}
                       onClick={closeMobile}
-                      className="block text-gray-300 hover:text-white text-sm font-bold uppercase py-3 transition-colors"
+                      aria-current={active ? 'page' : undefined}
+                      className={`block text-sm font-bold uppercase py-3 transition-colors ${
+                        active ? 'text-[#FF5B22]' : 'text-gray-300 hover:text-white'
+                      }`}
                     >
                       {link.label}
                     </Link>
@@ -372,21 +446,31 @@ export default function Header() {
                 <Link
                   href="/contact-us"
                   onClick={closeMobile}
-                  className="block w-full bg-[#FF5B22] hover:bg-[#e04b19] text-white text-center text-sm font-bold uppercase py-3.5 transition-colors rounded-sm"
+                  className="block w-full bg-[#FF5B22] hover:bg-[#e04b19] active:bg-[#c43e10] text-white text-center text-sm font-bold uppercase py-3.5 transition-colors rounded-sm"
                 >
                   GET A QUOTE
                 </Link>
               </div>
 
               <div className="px-5 pt-6 pb-8 mt-4 border-t border-white/5 space-y-3">
-                <div className="flex items-center gap-3 text-xs text-gray-400">
-                  <span className="text-[#FF5B22]">✉</span>
+                <a
+                  href="mailto:aeronsteels28@gmail.com"
+                  className="flex items-center gap-3 text-xs text-gray-400 hover:text-white transition-colors"
+                >
+                  <svg className="w-4 h-4 text-[#FF5B22] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
                   <span>aeronsteels28@gmail.com</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs text-gray-400">
-                  <span className="text-[#FF5B22]">℡</span>
+                </a>
+                <a
+                  href="tel:+918307028125"
+                  className="flex items-center gap-3 text-xs text-gray-400 hover:text-white transition-colors"
+                >
+                  <svg className="w-4 h-4 text-[#FF5B22] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
                   <span>+91 8307028125</span>
-                </div>
+                </a>
               </div>
             </motion.div>
           </motion.div>
@@ -398,8 +482,8 @@ export default function Header() {
 
 function CategoryCard({ category, onClick }: { category: MenuCategory; onClick: () => void }) {
   return (
-    <Link href={category.route} onClick={onClick}>
-      <div className="group relative bg-white border-2 border-gray-100 rounded-xl p-5 h-full flex flex-col items-center justify-center text-center hover:border-[#FF5B22] hover:shadow-lg hover:shadow-orange-100 transition-all duration-300 min-h-[120px] cursor-pointer">
+    <Link href={category.route} onClick={onClick} role="menuitem">
+      <div className="group relative bg-white border-2 border-gray-100 rounded-xl p-5 h-full flex flex-col items-center justify-center text-center hover:border-[#FF5B22] hover:shadow-lg hover:shadow-orange-100 transition-all duration-300 min-h-[120px] cursor-pointer focus-within:border-[#FF5B22]">
         <svg
           className="w-8 h-8 text-[#FF5B22] mb-3 group-hover:scale-110 transition-transform duration-300"
           fill="none"

@@ -27,6 +27,7 @@ export default function CertificationsClient() {
         title="Certifications"
         subtitle="Home > Certifications"
         bgImage="/images/service_chemical_1778761046335.png"
+        className="h-[650px]"
       />
 
       <section className="py-20 md:py-28 bg-white overflow-hidden">

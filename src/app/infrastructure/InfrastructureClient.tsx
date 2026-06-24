@@ -37,6 +37,7 @@ export default function InfrastructureClient() {
         title="Infrastructure"
         subtitle="Home > Infrastructure"
         bgImage="/photos/infra/cnc_machine.jpg"
+        className="h-[650px]"
       />
 
       <section className="py-20 md:py-28 bg-white overflow-hidden">

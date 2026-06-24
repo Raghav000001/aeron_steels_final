@@ -13,6 +13,7 @@ export default function AboutUsClient() {
         title="About Us"
         subtitle="Home > About Us"
         bgImage="/images/service_material_1778761584582.png"
+        className="h-[650px]"
       />
 
       <AboutSection />

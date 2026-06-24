@@ -4,11 +4,12 @@ interface PageBannerProps {
   title: string;
   subtitle?: string;
   bgImage?: string;
+  className?: string;
 }
 
-export default function PageBanner({ title, subtitle, bgImage = "/images/hero_bg_1778760928163.png" }: PageBannerProps) {
+export default function PageBanner({ title, subtitle, bgImage = "/images/hero_bg_1778760928163.png", className = "h-[350px]" }: PageBannerProps) {
   return (
-    <section className="relative w-full h-[350px] flex items-center justify-center overflow-hidden">
+    <section className={`relative w-full ${className} flex items-center justify-center overflow-hidden`}>
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"

@@ -52,6 +52,7 @@ export default async function ProductsPage() {
         title="Products"
         subtitle="Home > Products"
         bgImage="/images/service_material_1778761584582.png"
+        className="h-[650px]"
       />
 
       <section className="py-28 bg-white">
