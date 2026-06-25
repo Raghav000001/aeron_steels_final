@@ -162,7 +162,7 @@ export default function AboutSection() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
                 <img 
-                  src="/photos/home/big_circle.jpg" 
+                  src="/images/big_circle.jpeg" 
                   alt="Factory Interior" 
                   className="w-full h-full object-cover"
                 />
